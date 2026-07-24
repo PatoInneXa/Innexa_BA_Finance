@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe CFO — TEMPANO 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #f4f6f9; color: #1a2035; font-size: 13px; line-height: 1.6; }
+
+  /* === COVER === */
+  .cover {
+    background: linear-gradient(135deg, #0d2137 0%, #1a4068 50%, #0d5c8c 100%);
+    color: white; padding: 80px 60px; min-height: 320px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    page-break-after: always;
+  }
+  .cover-logo { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; margin-bottom: 60px; }
+  .cover-title { font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+  .cover-subtitle { font-size: 18px; font-weight: 300; opacity: 0.85; margin-bottom: 8px; }
+  .cover-period { font-size: 14px; opacity: 0.65; margin-bottom: 40px; }
+  .cover-meta { display: flex; gap: 40px; font-size: 11px; opacity: 0.7; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; }
+  .cover-meta span strong { display: block; font-size: 13px; opacity: 1; color: white; }
+
+  /* === LAYOUT === */
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+  .section { background: white; border-radius: 10px; padding: 32px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .section-title { font-size: 16px; font-weight: 700; color: #0d2137; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #0d5c8c; display: flex; align-items: center; gap: 10px; }
+  .section-title .tag { background: #0d5c8c; color: white; font-size: 10px; padding: 2px 8px; border-radius: 12px; font-weight: 500; letter-spacing: 0.5px; }
+
+  /* === EXECUTIVE SUMMARY === */
+  .exec-summary { background: linear-gradient(135deg, #0d2137, #1a4068); color: white; border-radius: 10px; padding: 32px; margin-bottom: 24px; }
+  .exec-summary h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.5px; }
+  .exec-summary p { font-size: 13px; line-height: 1.8; opacity: 0.9; margin-bottom: 12px; }
+  .exec-summary p:last-child { margin-bottom: 0; }
+
+  /* === KPI CARDS === */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-left: 4px solid #0d5c8c; }
+  .kpi-card.red { border-left-color: #d32f2f; }
+  .kpi-card.amber { border-left-color: #f57c00; }
+  .kpi-card.green { border-left-color: #2e7d32; }
+  .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; margin-bottom: 6px; }
+  .kpi-value { font-size: 22px; font-weight: 700; color: #0d2137; line-height: 1; }
+  .kpi-value.negative { color: #d32f2f; }
+  .kpi-value.positive { color: #2e7d32; }
+  .kpi-sub { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+
+  /* === ALERT BOX === */
+  .alert { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 12px; display: flex; gap: 12px; align-items: flex-start; }
+  .alert.critical { background: #fff5f5; border-left: 4px solid #d32f2f; }
+  .alert.warning { background: #fffbeb; border-left: 4px solid #f57c00; }
+  .alert.info { background: #f0f7ff; border-left: 4px solid #0d5c8c; }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .alert-title { font-weight: 700; margin-bottom: 3px; }
+  .alert.critical .alert-title { color: #d32f2f; }
+  .alert.warning .alert-title { color: #f57c00; }
+  .alert.info .alert-title { color: #0d5c8c; }
+
+  /* === TABLES === */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #0d2137; color: white; padding: 10px 12px; text-align: right; font-weight: 600; font-size: 11px; letter-spacing: 0.3px; }
+  th:first-child, th:nth-child(2) { text-align: left; }
+  td { padding: 9px 12px; text-align: right; border-bottom: 1px solid #f0f2f5; }
+  td:first-child, td:nth-child(2) { text-align: left; }
+  tr:hover td { background: #f8fafc; }
+  .row-header { background: #f0f4f8; font-weight: 700; color: #0d2137; }
+  .row-total { background: #0d2137; color: white; font-weight: 700; }
+  .row-total td { border-bottom: none; color: white; }
+  .positive { color: #2e7d32; font-weight: 600; }
+  .negative { color: #d32f2f; font-weight: 600; }
+  .neutral { color: #6b7280; }
+  .cc-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600; margin-right: 4px; }
+  .cc1 { background: #e8f5e9; color: #2e7d32; }
+  .cc2 { background: #fff3e0; color: #e65100; }
+  .cc3 { background: #e3f2fd; color: #0d47a1; }
+
+  /* === CHARTS (CSS only) === */
+  .bar-container { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label { width: 100px; font-size: 11px; font-weight: 500; color: #374151; flex-shrink: 0; }
+  .bar-track { flex: 1; background: #f0f2f5; border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: white; white-space: nowrap; }
+  .bar-neg-fill { background: #d32f2f; }
+  .bar-pos-fill { background: #0d5c8c; }
+  .bar-zero { background: #e5e7eb; }
+  .bar-value { width: 110px; font-size: 11px; text-align: right; flex-shrink: 0; font-weight: 600; }
+
+  /* === TWO COLUMN === */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* === TREND INDICATOR === */
+  .trend { font-size: 11px; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+  .trend-up { background: #e8f5e9; color: #2e7d32; }
+  .trend-down { background: #ffebee; color: #d32f2f; }
+  .trend-flat { background: #f3f4f6; color: #6b7280; }
+
+  /* === PROGRESS RING CSS === */
+  .metric-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f2f5; }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-name { font-size: 12px; color: #374151; }
+  .metric-value { font-size: 13px; font-weight: 700; }
+
+  /* === DONUT (pure CSS) === */
+  .pie-legend { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .pie-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .pie-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  /* === WATERFALL CHART (CSS bars) === */
+  .waterfall { display: flex; align-items: flex-end; gap: 12px; height: 160px; margin: 20px 0; padding: 0 10px; }
+  .wf-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+  .wf-bar { width: 100%; border-radius: 4px 4px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 4px; font-size: 10px; font-weight: 700; color: white; transition: all 0.3s; }
+  .wf-label { font-size: 10px; color: #6b7280; font-weight: 500; text-align: center; }
+  .wf-value { font-size: 10px; font-weight: 700; text-align: center; }
+
+  /* === FOOTER === */
+  .report-footer { text-align: center; padding: 20px; font-size: 10px; color: #9ca3af; margin-top: 16px; }
+  .confidential { display: inline-block; border: 1px solid #d1d5db; padding: 2px 10px; border-radius: 4px; font-weight: 600; color: #6b7280; font-size: 10px; letter-spacing: 1px; }
+
+  /* === PAGE BREAK === */
+  .page-break { border: none; border-top: 2px dashed #e5e7eb; margin: 32px 0; }
+
+  /* === HEADING LEVELS === */
+  h3 { font-size: 13px; font-weight: 700; color: #0d2137; margin: 16px 0 8px; }
+  h4 { font-size: 12px; font-weight: 600; color: #374151; margin: 12px 0 6px; }
+  p.body { font-size: 12px; color: #4b5563; line-height: 1.7; margin-bottom: 10px; }
+
+  /* === RECOMMENDATION === */
+  .rec-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .rec-item { display: flex; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px; align-items: flex-start; }
+  .rec-number { background: #0d5c8c; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .rec-number.urgent { background: #d32f2f; }
+  .rec-content { flex: 1; }
+  .rec-title { font-size: 12px; font-weight: 700; color: #0d2137; margin-bottom: 3px; }
+  .rec-desc { font-size: 11px; color: #6b7280; }
+  .priority { font-size: 10px; padding: 1px 6px; border-radius: 8px; font-weight: 600; margin-left: 6px; }
+  .p-alta { background: #ffebee; color: #d32f2f; }
+  .p-media { background: #fff3e0; color: #e65100; }
+
+  @media print {
+    body { background: white; }
+    .section { box-shadow: none; border: 1px solid #e5e7eb; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ COVER ══════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">INFORME EJECUTIVO CONFIDENCIAL</div>
+  <div>
+    <div class="cover-title">Análisis Financiero<br>por Centro de Costo</div>
+    <div class="cover-subtitle">TEMPANO — Balance de Gestión 2026</div>
+    <div class="cover-period">Enero — Mayo 2026 (5 meses acumulados)</div>
+  </div>
+  <div class="cover-meta">
+    <span><strong>Preparado por</strong> Gerencia de Finanzas (CFO)</span>
+    <span><strong>Fecha</strong> 24 de Julio de 2026</span>
+    <span><strong>Clasificación</strong> Uso Interno — Confidencial</span>
+    <span><strong>Versión</strong> 1.0 — Final</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════ EXECUTIVE SUMMARY ══════════════════════ -->
+<div class="exec-summary">
+  <h2>📋 RESUMEN EJECUTIVO</h2>
+  <p>
+    La empresa TEMPANO presenta un desempeño financiero <strong>bifásico y altamente preocupante</strong> en el período enero–mayo 2026.
+    Durante el primer bimestre (enero–febrero), la compañía operó con resultados positivos impulsados por ingresos estacionales de
+    TEMPANO III, generando un superávit acumulado de $31.1 millones CLP. Sin embargo, a partir de marzo se produce una ruptura estructural:
+    los ingresos de TEMPANO III colapsan de $37.9M a $6M (marzo) y cero (abril–mayo), mientras los costos operativos se mantienen
+    en niveles de $15–20M mensuales.
+  </p>
+  <p>
+    El resultado acumulado a mayo asciende a <strong>–$10.96 millones CLP</strong> (déficit), con una tasa de pérdida mensual en
+    expansión que llegó a –$18.7M en mayo. La empresa enfrenta tres riesgos críticos: (1) extrema concentración de ingresos en
+    TEMPANO III (95% del total), (2) un centro de costo TEMPANO II sin generación de ingresos que consume $15.5M en el período, y
+    (3) costos de personal en TEMPANO III que representan el 64% de sus costos totales, con escasa flexibilidad a la baja en períodos
+    fuera de temporada.
+  </p>
+  <p>
+    <strong>Proyección:</strong> De no reactivarse la temporada de pesca o implementarse medidas correctivas, el déficit proyectado
+    a diciembre 2026 superaría los <strong>–$141 millones CLP</strong>, poniendo en riesgo la continuidad operacional.
+  </p>
+</div>
+
+<!-- ══════════════════════ KPI CARDS ══════════════════════ -->
+<div class="kpi-grid">
+  <div class="kpi-card red">
+    <div class="kpi-label">Resultado Acumulado</div>
+    <div class="kpi-value negative">–$10.96M</div>
+    <div class="kpi-sub">CLP | Ene–May 2026</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Déficit Mayo (burn rate)</div>
+    <div class="kpi-value negative">–$18.67M</div>
+    <div class="kpi-sub">CLP/mes | tendencia deterioro</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Ingresos Totales Acum.</div>
+    <div class="kpi-value" style="color:#0d5c8c">$79.76M</div>
+    <div class="kpi-sub">CLP | 95% depende de T-III</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Costo Total Acumulado</div>
+    <div class="kpi-value negative">$90.72M</div>
+    <div class="kpi-sub">CLP | 113.7% sobre ingresos</div>
+  </div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card green">
+    <div class="kpi-label">Margen TEMPANO I (acum)</div>
+    <div class="kpi-value positive">6.6%</div>
+    <div class="kpi-sub">$267K resultado positivo</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">TEMPANO II — Sin ingresos</div>
+    <div class="kpi-value negative">$0</div>
+    <div class="kpi-sub">–$15.5M déficit acumulado</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Margen TEMPANO III (acum)</div>
+    <div class="kpi-value positive">5.6%</div>
+    <div class="kpi-sub">Solo sobre meses con ingresos</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Concentración de Ingresos</div>
+    <div class="kpi-value negative">94.9%</div>
+    <div class="kpi-sub">T-III / total empresa</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ ALERTS ══════════════════════ -->
+<div class="alert critical">
+  <div class="alert-icon">🔴</div>
+  <div>
+    <div class="alert-title">ALERTA CRÍTICA: Déficit Creciente</div>
+    El resultado mensual pasó de +$11.6M (enero) a –$18.7M (mayo). La empresa pierde aproximadamente $30M adicionales cada mes respecto al bimestre inicial. Sin acción inmediata, el patrimonio estará en riesgo severo antes de fin de año.
+  </div>
+</div>
+<div class="alert warning">
+  <div class="alert-icon">🟡</div>
+  <div>
+    <div class="alert-title">ALERTA: TEMPANO II — Centro de Costo Sin Retorno</div>
+    TEMPANO II acumula –$15.5M en costos sin generar un solo peso de ingreso. La depreciación (68.7%) y el muellaje (25.8%) son sus únicos destinos de gasto. Se requiere revisión estratégica urgente de la operación de esta embarcación.
+  </div>
+</div>
+<div class="alert info">
+  <div class="alert-icon">🔵</div>
+  <div>
+    <div class="alert-title">OBSERVACIÓN: Estacionalidad Estructural No Mitigada</div>
+    Los ingresos de TEMPANO III son 100% estacionales (enero–marzo). No existe cobertura financiera ni fuente de ingresos alternativa para los meses sin pesca, exponiendo a la empresa a déficits predecibles pero actualmente no cubiertos.
+  </div>
+</div>
+
+<!-- ═══════════════ SECCIÓN 1: RESULTADO OPERACIONAL ═══════════════ -->
+<div class="section">
+  <div class="section-title">
+    <span>1. RESULTADO OPERACIONAL POR CENTRO DE COSTO</span>
+    <span class="tag">ANÁLISIS MENSUAL</span>
+  </div>
+
+  <p class="body">El siguiente estado de resultados operacionales presenta la evolución mensual de ingresos, costos y resultado
+  por cada uno de los tres centros de costo activos en el período enero–mayo 2026. Las cifras se expresan en pesos chilenos (CLP).</p>
+
+  <!-- ESTADO DE RESULTADOS COMPLETO -->
+  <h3>1.1 Estado de Resultados Mensual — Consolidado Empresa</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Concepto</th>
+        <th>CC</th>
+        <th>Enero</th>
+        <th>Febrero</th>
+        <th>Marzo</th>
+        <th>Abril</th>
+        <th>Mayo</th>
+        <th>TOTAL ACUM.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- INGRESOS -->
+      <tr class="row-header"><td colspan="8">INGRESOS OPERACIONALES</td></tr>
+      <tr>
+        <td>Otras Ventas / Servicio</td>
+        <td><span class="cc-badge cc1">T-I</span></td>
+        <td>810.021</td><td>810.021</td><td>810.021</td><td>810.021</td><td>810.021</td>
+        <td class="positive">4.050.105</td>
+      </tr>
+      <tr>
+        <td>—</td>
+        <td><span class="cc-badge cc2">T-II</span></td>
+        <td class="neutral">—</td><td class="neutral">—</td><td class="neutral">—</td><td class="neutral">—</td><td class="neutral">—</td>
+        <td class="neutral">—</td>
+      </tr>
+      <tr>
+        <td>Venta Pesca / Faena</td>
+        <td><span class="cc-badge cc3">T-III</span></td>
+        <td>31.806.000</td><td>37.882.200</td><td>6.020.000</td>
+        <td class="neutral">—</td><td class="neutral">—</td>
+        <td class="positive">75.708.200</td>
+      </tr>
+      <tr class="row-header" style="background:#e8f5e9">
+        <td><strong>TOTAL INGRESOS</strong></td><td></td>
+        <td><strong>32.616.021</strong></td>
+        <td><strong>38.692.221</strong></td>
+        <td><strong>6.830.021</strong></td>
+        <td><strong>810.021</strong></td>
+        <td><strong>810.021</strong></td>
+        <td class="positive"><strong>79.758.305</strong></td>
+      </tr>
+
+      <!-- COSTOS -->
+      <tr class="row-header"><td colspan="8">COSTOS OPERACIONALES</td></tr>
+      <tr>
+        <td>Costos T-I</td>
+        <td><span class="cc-badge cc1">T-I</span></td>
+        <td class="negative">(751.351)</td><td class="negative">(732.388)</td>
+        <td class="negative">(773.557)</td><td class="negative">(761.705)</td>
+        <td class="negative">(763.701)</td>
+        <td class="negative">(3.782.702)</td>
+      </tr>
+      <tr>
+        <td>Costos T-II</td>
+        <td><span class="cc-badge cc2">T-II</span></td>
+        <td class="negative">(3.044.854)</td><td class="negative">(3.016.632)</td>
+        <td class="negative">(3.188.718)</td><td class="negative">(3.132.933)</td>
+        <td class="negative">(3.112.208)</td>
+        <td class="negative">(15.495.345)</td>
+      </tr>
+      <tr>
+        <td>Costos T-III</td>
+        <td><span class="cc-badge cc3">T-III</span></td>
+        <td class="negative">(17.260.764)</td><td class="negative">(15.392.163)</td>
+        <td class="negative">(11.849.159)</td><td class="negative">(11.333.035)</td>
+        <td class="negative">(15.606.443)</td>
+        <td class="negative">(71.441.564)</td>
+      </tr>
+      <tr class="row-header" style="background:#fff5f5">
+        <td><strong>TOTAL COSTOS</strong></td><td></td>
+        <td class="negative"><strong>(21.056.969)</strong></td>
+        <td class="negative"><strong>(19.141.183)</strong></td>
+        <td class="negative"><strong>(15.811.434)</strong></td>
+        <td class="negative"><strong>(15.227.673)</strong></td>
+        <td class="negative"><strong>(19.482.352)</strong></td>
+        <td class="negative"><strong>(90.719.611)</strong></td>
+      </tr>
+
+      <!-- RESULTADO -->
+      <tr class="row-header"><td colspan="8">RESULTADO OPERACIONAL</td></tr>
+      <tr>
+        <td>Resultado T-I</td>
+        <td><span class="cc-badge cc1">T-I</span></td>
+        <td class="positive">58.670</td><td class="positive">77.633</td>
+        <td class="positive">36.464</td><td class="positive">48.316</td>
+        <td class="positive">46.320</td>
+        <td class="positive">267.403</td>
+      </tr>
+      <tr>
+        <td>Resultado T-II</td>
+        <td><span class="cc-badge cc2">T-II</span></td>
+        <td class="negative">(3.044.854)</td><td class="negative">(3.016.632)</td>
+        <td class="negative">(3.188.718)</td><td class="negative">(3.132.933)</td>
+        <td class="negative">(3.112.208)</td>
+        <td class="negative">(15.495.345)</td>
+      </tr>
+      <tr>
+        <td>Resultado T-III</td>
+        <td><span class="cc-badge cc3">T-III</span></td>
+        <td class="positive">14.545.236</td><td class="positive">22.490.037</td>
+        <td class="negative">(5.829.159)</td><td class="negative">(11.333.035)</td>
+        <td class="negative">(15.606.443)</td>
+        <td class="positive">4.266.636</td>
+      </tr>
+      <tr class="row-total">
+        <td><strong>RESULTADO EMPRESA</strong></td><td></td>
+        <td class="positive"><strong>11.559.052</strong></td>
+        <td class="positive"><strong>19.551.038</strong></td>
+        <td class="negative"><strong>(8.981.413)</strong></td>
+        <td class="negative"><strong>(14.417.652)</strong></td>
+        <td class="negative"><strong>(18.672.331)</strong></td>
+        <td class="negative"><strong>(10.961.306)</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ANÁLISIS VISUAL DE RESULTADOS -->
+  <h3 style="margin-top:24px">1.2 Evolución del Resultado Mensual — Total Empresa</h3>
+  <p class="body">El gráfico de barras ilustra la transición de una situación superavitaria a deficitaria. El quiebre estructural ocurre en marzo al agotarse los ingresos de la temporada pesquera.</p>
+
+  <div class="bar-container">
+    <div class="bar-row">
+      <div class="bar-label">Enero</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-pos-fill" style="width:62%">+11.6M</div>
+      </div>
+      <div class="bar-value positive">+$11.559.052</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Febrero</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-pos-fill" style="width:100%">+19.6M ▲ MÁX</div>
+      </div>
+      <div class="bar-value positive">+$19.551.038</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Marzo</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-neg-fill" style="width:46%">(8.9M)</div>
+      </div>
+      <div class="bar-value negative">–$8.981.413</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Abril</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-neg-fill" style="width:74%">(14.4M)</div>
+      </div>
+      <div class="bar-value negative">–$14.417.652</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Mayo</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-neg-fill" style="width:96%">(18.7M) ▼ MÍN</div>
+      </div>
+      <div class="bar-value negative">–$18.672.331</div>
+    </div>
+  </div>
+
+  <!-- ANÁLISIS POR CC -->
+  <h3 style="margin-top:28px">1.3 Perfil Operativo por Centro de Costo</h3>
+
+  <div class="two-col" style="margin-top:16px">
+    <!-- T-I -->
+    <div style="background:#f0fdf4; border-radius:8px; padding:16px; border:1px solid #bbf7d0;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div style="font-weight:700; color:#166534; font-size:13px;">TEMPANO I</div>
+        <span class="trend trend-up">ESTABLE ↔</span>
+      </div>
+      <div class="metric-row"><span class="metric-name">Tipo de operación</span><span class="metric-value" style="font-size:11px">Embarcación / Servicio Fijo</span></div>
+      <div class="metric-row"><span class="metric-name">Ingreso mensual</span><span class="metric-value positive">$810.021</span></div>
+      <div class="metric-row"><span class="metric-name">Costo mensual prom.</span><span class="metric-value negative">$756.540</span></div>
+      <div class="metric-row"><span class="metric-name">Resultado mensual prom.</span><span class="metric-value positive">+$53.481</span></div>
+      <div class="metric-row"><span class="metric-name">Margen acumulado</span><span class="metric-value positive">6.6%</span></div>
+      <div class="metric-row"><span class="metric-name">Variabilidad costos</span><span class="metric-value" style="font-size:11px; color:#6b7280">Baja (±3%)</span></div>
+    </div>
+
+    <!-- T-II -->
+    <div style="background:#fff7ed; border-radius:8px; padding:16px; border:1px solid #fed7aa;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div style="font-weight:700; color:#7c2d12; font-size:13px;">TEMPANO II</div>
+        <span class="trend trend-down">CRÍTICO ⚠</span>
+      </div>
+      <div class="metric-row"><span class="metric-name">Tipo de operación</span><span class="metric-value" style="font-size:11px">CC Puro / Sin Ingresos</span></div>
+      <div class="metric-row"><span class="metric-name">Ingreso mensual</span><span class="metric-value neutral">$0</span></div>
+      <div class="metric-row"><span class="metric-name">Costo mensual prom.</span><span class="metric-value negative">$3.099.069</span></div>
+      <div class="metric-row"><span class="metric-name">Resultado mensual prom.</span><span class="metric-value negative">–$3.099.069</span></div>
+      <div class="metric-row"><span class="metric-name">Margen acumulado</span><span class="metric-value negative">N/A</span></div>
+      <div class="metric-row"><span class="metric-name">Principal costo</span><span class="metric-value" style="font-size:11px; color:#6b7280">Depreciación (68.7%)</span></div>
+    </div>
+
+    <!-- T-III -->
+    <div style="background:#eff6ff; border-radius:8px; padding:16px; border:1px solid #bfdbfe; grid-column: span 2;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div style="font-weight:700; color:#1e3a8a; font-size:13px;">TEMPANO III — MOTOR DE INGRESOS</div>
+        <span class="trend trend-down">TEMPORADA TERMINADA ↓</span>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;">
+        <div class="metric-row" style="flex-direction:column; align-items:flex-start; border:none; background:#e0f2fe; padding:10px; border-radius:6px;">
+          <span class="metric-name">Ingresos acumulados</span>
+          <span class="metric-value positive" style="font-size:15px;">$75.708.200</span>
+          <span style="font-size:10px; color:#6b7280">95% del total empresa</span>
+        </div>
+        <div class="metric-row" style="flex-direction:column; align-items:flex-start; border:none; background:#fce7f3; padding:10px; border-radius:6px;">
+          <span class="metric-name">Costos acumulados</span>
+          <span class="metric-value negative" style="font-size:15px;">$71.441.564</span>
+          <span style="font-size:10px; color:#6b7280">64% remuneraciones</span>
+        </div>
+        <div class="metric-row" style="flex-direction:column; align-items:flex-start; border:none; background:#f0fdf4; padding:10px; border-radius:6px;">
+          <span class="metric-name">Resultado acumulado</span>
+          <span class="metric-value positive" style="font-size:15px;">+$4.266.636</span>
+          <span style="font-size:10px; color:#6b7280">Solo en meses con pesca</span>
+        </div>
+        <div class="metric-row" style="flex-direction:column; align-items:flex-start; border:none; background:#fff7ed; padding:10px; border-radius:6px;">
+          <span class="metric-name">Meses productivos</span>
+          <span class="metric-value" style="font-size:15px; color:#0d5c8c;">3 / 5</span>
+          <span style="font-size:10px; color:#6b7280">Ene-Feb-Mar únicamente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="page-break">
+
+<!-- ═══════════════ SECCIÓN 2: RENTABILIDAD ═══════════════ -->
+<div class="section">
+  <div class="section-title">
+    <span>2. ANÁLISIS DE RENTABILIDAD POR CENTRO DE COSTO Y MES</span>
+    <span class="tag">MÁRGENES</span>
+  </div>
+
+  <p class="body">El análisis de rentabilidad mensual evidencia la fragilidad del modelo de negocios cuando la actividad estacional de TEMPANO III se suspende. Se presentan los márgenes operacionales y la descomposición de costos.</p>
+
+  <!-- TABLA DE MÁRGENES -->
+  <h3>2.1 Margen Operacional por Centro de Costo (%)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Centro de Costo</th>
+        <th>Tipo</th>
+        <th>Enero</th>
+        <th>Febrero</th>
+        <th>Marzo</th>
+        <th>Abril</th>
+        <th>Mayo</th>
+        <th>Promedio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="cc-badge cc1">T-I</span> TEMPANO I</td>
+        <td>Ingresos Fijos</td>
+        <td class="positive">7.2%</td>
+        <td class="positive">9.6%</td>
+        <td class="positive">4.5%</td>
+        <td class="positive">6.0%</td>
+        <td class="positive">5.7%</td>
+        <td class="positive">6.6%</td>
+      </tr>
+      <tr>
+        <td><span class="cc-badge cc2">T-II</span> TEMPANO II</td>
+        <td>CC Puro</td>
+        <td class="negative">N/A</td>
+        <td class="negative">N/A</td>
+        <td class="negative">N/A</td>
+        <td class="negative">N/A</td>
+        <td class="negative">N/A</td>
+        <td class="negative">–</td>
+      </tr>
+      <tr>
+        <td><span class="cc-badge cc3">T-III</span> TEMPANO III</td>
+        <td>Estacional</td>
+        <td class="positive">45.7%</td>
+        <td class="positive">59.4%</td>
+        <td class="negative">(96.8%)</td>
+        <td class="negative">N/A</td>
+        <td class="negative">N/A</td>
+        <td class="positive">5.6% acum</td>
+      </tr>
+      <tr class="row-header" style="background:#f0f4f8">
+        <td><strong>TOTAL EMPRESA</strong></td>
+        <td></td>
+        <td class="positive"><strong>35.4%</strong></td>
+        <td class="positive"><strong>50.5%</strong></td>
+        <td class="negative"><strong>(131.5%)</strong></td>
+        <td class="negative"><strong>(1.780%)</strong></td>
+        <td class="negative"><strong>(2.305%)</strong></td>
+        <td class="negative"><strong>(13.7%) acum</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert warning" style="margin-top:16px">
+    <div class="alert-icon">⚠️</div>
+    <div>
+      <div class="alert-title">Ruptura de Rentabilidad en Marzo</div>
+      TEMPANO III registró un margen de –96.8% en marzo con ingresos de solo $6M (vs costos de $11.8M). La caída de $31.9M en ingresos respecto a febrero explica el deterioro de $28.5M en el resultado mensual entre ambos meses. Esta ruptura es predecible dado el carácter estacional pero no está siendo cubierta financieramente.
+    </div>
+  </div>
+
+  <!-- ANÁLISIS DE COSTOS POR CC -->
+  <h3 style="margin-top:24px">2.2 Estructura de Costos Acumulados por Centro de Costo</h3>
+
+  <div class="two-col">
+    <!-- TEMPANO II detalle -->
+    <div>
+      <h4>TEMPANO II — Desglose de Costos (Acum. a Mayo)</h4>
+      <table>
+        <thead>
+          <tr><th>Cuenta</th><th>Acumulado</th><th>%</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Depreciación Activos</td>
+            <td class="negative">10.645.738</td>
+            <td><strong>68.7%</strong></td>
+          </tr>
+          <tr>
+            <td>Muellaje y Recaladas</td>
+            <td class="negative">4.000.000</td>
+            <td>25.8%</td>
+          </tr>
+          <tr>
+            <td>Posicionador Satelital</td>
+            <td class="negative">479.304</td>
+            <td>3.1%</td>
+          </tr>
+          <tr>
+            <td>Gastos de Autoridad</td>
+            <td class="negative">351.984</td>
+            <td>2.3%</td>
+          </tr>
+          <tr class="row-header">
+            <td><strong>Total T-II</strong></td>
+            <td class="negative"><strong>15.495.345</strong></td>
+            <td><strong>100%</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="body" style="margin-top:8px; font-size:11px">La depreciación es un costo <strong>no erogable</strong> (no genera salida de caja) pero refleja el desgaste del activo. El muellaje ($800K/mes) sí es erogable y debe evaluarse si puede reducirse durante períodos de inactividad.</p>
+    </div>
+
+    <!-- TEMPANO III detalle -->
+    <div>
+      <h4>TEMPANO III — Desglose de Costos (Acum. a Mayo)</h4>
+      <table>
+        <thead>
+          <tr><th>Cuenta</th><th>Acumulado</th><th>%</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Remuneraciones Personal</td>
+            <td class="negative">45.963.800</td>
+            <td><strong>64.3%</strong></td>
+          </tr>
+          <tr>
+            <td>Víveres</td>
+            <td class="negative">4.346.006</td>
+            <td>6.1%</td>
+          </tr>
+          <tr>
+            <td>Mantención Embarcaciones</td>
+            <td class="negative">4.957.228</td>
+            <td>6.9%</td>
+          </tr>
+          <tr>
+            <td>Muellaje y Recaladas</td>
+            <td class="negative">4.000.000</td>
+            <td>5.6%</td>
+          </tr>
+          <tr>
+            <td>Gastos de Autoridad</td>
+            <td class="negative">681.617</td>
+            <td>1.0%</td>
+          </tr>
+          <tr>
+            <td>Posicionador Satelital</td>
+            <td class="negative">400.605</td>
+            <td>0.6%</td>
+          </tr>
+          <tr>
+            <td>Aceite y Lubricantes</td>
+            <td class="negative">892.465</td>
+            <td>1.2%</td>
+          </tr>
+          <tr>
+            <td>Otros (Alojamiento, Ropa, Hab., Ins.)</td>
+            <td class="negative">10.199.843</td>
+            <td>14.3%</td>
+          </tr>
+          <tr class="row-header">
+            <td><strong>Total T-III</strong></td>
+            <td class="negative"><strong>71.441.564</strong></td>
+            <td><strong>100%</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BARRA DE RENTABILIDAD POR MES T-III -->
+  <h3 style="margin-top:24px">2.3 Rentabilidad Mensual TEMPANO III — Ingresos vs Costos</h3>
+
+  <div class="bar-container" style="margin-top:16px">
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Enero — Ing</div>
+      <div class="bar-track"><div class="bar-fill bar-pos-fill" style="width:84%">$31.8M</div></div>
+      <div class="bar-value positive" style="font-size:11px">$31.806.000</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Enero — Cost</div>
+      <div class="bar-track"><div class="bar-fill" style="width:46%; background:#93c5fd;">$17.3M</div></div>
+      <div class="bar-value" style="font-size:11px; color:#0d5c8c">$17.260.764</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Febrero — Ing</div>
+      <div class="bar-track"><div class="bar-fill bar-pos-fill" style="width:100%">$37.9M ▲ MÁX</div></div>
+      <div class="bar-value positive" style="font-size:11px">$37.882.200</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Febrero — Cost</div>
+      <div class="bar-track"><div class="bar-fill" style="width:41%; background:#93c5fd;">$15.4M</div></div>
+      <div class="bar-value" style="font-size:11px; color:#0d5c8c">$15.392.163</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Marzo — Ing</div>
+      <div class="bar-track"><div class="bar-fill bar-pos-fill" style="width:16%">$6.0M</div></div>
+      <div class="bar-value" style="font-size:11px; color:#0d5c8c">$6.020.000</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Marzo — Cost</div>
+      <div class="bar-track"><div class="bar-fill bar-neg-fill" style="width:31%">$11.8M</div></div>
+      <div class="bar-value negative" style="font-size:11px">$11.849.159</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Abril/Mayo — Ing</div>
+      <div class="bar-track"><div class="bar-fill bar-zero" style="width:2%"></div></div>
+      <div class="bar-value negative" style="font-size:11px">$0</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Abril — Cost</div>
+      <div class="bar-track"><div class="bar-fill bar-neg-fill" style="width:30%">$11.3M</div></div>
+      <div class="bar-value negative" style="font-size:11px">$11.333.035</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label" style="width:80px; font-size:10px">Mayo — Cost</div>
+      <div class="bar-track"><div class="bar-fill bar-neg-fill" style="width:41%">$15.6M ▲ en alza</div></div>
+      <div class="bar-value negative" style="font-size:11px">$15.606.443</div>
+    </div>
+  </div>
+</div>
+
+<hr class="page-break">
+
+<!-- ═══════════════ SECCIÓN 3: INDICADORES ═══════════════ -->
+<div class="section">
+  <div class="section-title">
+    <span>3. INDICADORES OPERATIVOS Y FINANCIEROS POR CENTRO DE COSTO</span>
+    <span class="tag">KPIs</span>
+  </div>
+
+  <p class="body">Los siguientes indicadores cuantifican la eficiencia operacional, la estructura de costos y la sostenibilidad financiera de cada centro de costo en el período analizado.</p>
+
+  <!-- TABLA KPI COMPARATIVA -->
+  <h3>3.1 Dashboard de KPIs — Comparativo por Centro de Costo</h3>
+  <table style="margin-top:12px">
+    <thead>
+      <tr>
+        <th>Indicador</th>
+        <th>Descripción</th>
+        <th>TEMPANO I</th>
+        <th>TEMPANO II</th>
+        <th>TEMPANO III</th>
+        <th>EMPRESA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ingresos Acum. (CLP)</strong></td>
+        <td>Total ingresos Ene–May</td>
+        <td class="positive">4.050.105</td>
+        <td class="neutral">—</td>
+        <td class="positive">75.708.200</td>
+        <td><strong>79.758.305</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Costos Acum. (CLP)</strong></td>
+        <td>Total costos Ene–May</td>
+        <td class="negative">3.782.702</td>
+        <td class="negative">15.495.345</td>
+        <td class="negative">71.441.564</td>
+        <td class="negative"><strong>90.719.611</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Resultado Acum. (CLP)</strong></td>
+        <td>Resultado operacional</td>
+        <td class="positive">267.403</td>
+        <td class="negative">(15.495.345)</td>
+        <td class="positive">4.266.636</td>
+        <td class="negative"><strong>(10.961.306)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Margen Operacional</strong></td>
+        <td>Resultado / Ingresos</td>
+        <td class="positive">6.6%</td>
+        <td class="negative">N/A</td>
+        <td class="positive">5.6%</td>
+        <td class="negative"><strong>(13.7%)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Ratio Costo/Ingreso</strong></td>
+        <td>Eficiencia uso de recursos</td>
+        <td class="positive">93.4%</td>
+        <td class="negative">∞</td>
+        <td class="positive">94.4%</td>
+        <td class="negative"><strong>113.7%</strong></td>
+      </tr>
+      <tr>
+        <td><strong>% del Ingreso Empresa</strong></td>
+        <td>Contribución a ingresos total</td>
+        <td>5.1%</td>
+        <td class="neutral">0.0%</td>
+        <td><strong>94.9%</strong></td>
+        <td>100%</td>
+      </tr>
+      <tr>
+        <td><strong>% del Costo Empresa</strong></td>
+        <td>Absorción de costos totales</td>
+        <td>4.2%</td>
+        <td class="negative"><strong>17.1%</strong></td>
+        <td>78.7%</td>
+        <td>100%</td>
+      </tr>
+      <tr>
+        <td><strong>Meses con Ingresos</strong></td>
+        <td>De los 5 meses analizados</td>
+        <td class="positive">5 / 5</td>
+        <td class="negative">0 / 5</td>
+        <td class="negative">3 / 5</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Costo Mensual Promedio</strong></td>
+        <td>Media simple 5 meses</td>
+        <td class="negative">756.540</td>
+        <td class="negative">3.099.069</td>
+        <td class="negative">14.288.313</td>
+        <td class="negative"><strong>18.143.922</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Principal Costo</strong></td>
+        <td>Cuenta de mayor peso</td>
+        <td>Seguro Embarcación</td>
+        <td class="negative">Depreciación (68.7%)</td>
+        <td class="negative">Remuneraciones (64.3%)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Variabilidad de Costos</strong></td>
+        <td>Desviación entre meses</td>
+        <td class="positive">Baja (±3%)</td>
+        <td>Media (±4%)</td>
+        <td class="negative">Alta (±20%)</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PUNTO DE EQUILIBRIO -->
+  <h3 style="margin-top:28px">3.2 Análisis del Punto de Equilibrio</h3>
+  <p class="body">El punto de equilibrio mensual es el nivel de ingresos necesario para cubrir todos los costos operacionales de la empresa. En los meses sin actividad de TEMPANO III, la cobertura de ingresos sobre costos es mínima.</p>
+
+  <table style="margin-top:12px">
+    <thead>
+      <tr>
+        <th>Mes</th>
+        <th>Ingresos Totales</th>
+        <th>Costos Totales</th>
+        <th>Brecha</th>
+        <th>Cobertura</th>
+        <th>Situación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Enero</td>
+        <td class="positive">32.616.021</td>
+        <td class="negative">21.056.969</td>
+        <td class="positive">+11.559.052</td>
+        <td class="positive">154.9%</td>
+        <td><span class="trend trend-up">SUPERÁVIT</span></td>
+      </tr>
+      <tr>
+        <td>Febrero</td>
+        <td class="positive">38.692.221</td>
+        <td class="negative">19.141.183</td>
+        <td class="positive">+19.551.038</td>
+        <td class="positive">202.1%</td>
+        <td><span class="trend trend-up">SUPERÁVIT</span></td>
+      </tr>
+      <tr>
+        <td>Marzo</td>
+        <td>6.830.021</td>
+        <td class="negative">15.811.434</td>
+        <td class="negative">(8.981.413)</td>
+        <td class="negative">43.2%</td>
+        <td><span class="trend trend-down">DÉFICIT</span></td>
+      </tr>
+      <tr>
+        <td>Abril</td>
+        <td>810.021</td>
+        <td class="negative">15.227.673</td>
+        <td class="negative">(14.417.652)</td>
+        <td class="negative">5.3%</td>
+        <td><span class="trend trend-down">DÉFICIT</span></td>
+      </tr>
+      <tr>
+        <td>Mayo</td>
+        <td>810.021</td>
+        <td class="negative">19.482.352</td>
+        <td class="negative">(18.672.331)</td>
+        <td class="negative">4.2%</td>
+        <td><span class="trend trend-down">DÉFICIT</span></td>
+      </tr>
+      <tr class="row-total">
+        <td><strong>ACUMULADO</strong></td>
+        <td><strong>79.758.305</strong></td>
+        <td><strong>90.719.611</strong></td>
+        <td class="negative"><strong>(10.961.306)</strong></td>
+        <td class="negative"><strong>87.9%</strong></td>
+        <td><strong>DÉFICIT</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert critical" style="margin-top:16px">
+    <div class="alert-icon">🔴</div>
+    <div>
+      <div class="alert-title">Umbral Crítico de Cobertura</div>
+      En los meses de abril y mayo, los ingresos de TEMPANO I ($810K/mes) cubren apenas el <strong>4.2–5.3%</strong> de los costos totales.
+      El costo mensual sin temporada de pesca es de aproximadamente <strong>$15–19M CLP</strong>,
+      lo que implica que la empresa necesita generar <strong>mínimo $18M adicionales por mes</strong> solo para operar en equilibrio.
+    </div>
+  </div>
+
+  <!-- PROYECCIÓN -->
+  <h3 style="margin-top:28px">3.3 Proyección Financiera — Escenario Sin Pesca (Junio–Diciembre 2026)</h3>
+  <p class="body">Bajo el supuesto conservador de que TEMPANO III no genera ingresos de pesca en el segundo semestre 2026, con un costo mensual equivalente al promedio de abril–mayo ($17.4M), la proyección es la siguiente:</p>
+
+  <table style="margin-top:12px">
+    <thead>
+      <tr>
+        <th>Período</th>
+        <th>Ingresos Estimados</th>
+        <th>Costos Estimados</th>
+        <th>Resultado Mensual</th>
+        <th>Déficit Acumulado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#f8fafc">
+        <td>Acum. Ene–May (real)</td>
+        <td class="positive">79.758.305</td>
+        <td class="negative">90.719.611</td>
+        <td class="negative">(10.961.306)</td>
+        <td class="negative"><strong>(10.961.306)</strong></td>
+      </tr>
+      <tr>
+        <td>Junio 2026 (est.)</td>
+        <td>810.021</td>
+        <td class="negative">17.400.000</td>
+        <td class="negative">(16.589.979)</td>
+        <td class="negative">(27.551.285)</td>
+      </tr>
+      <tr>
+        <td>Julio 2026 (est.)</td>
+        <td>810.021</td>
+        <td class="negative">17.400.000</td>
+        <td class="negative">(16.589.979)</td>
+        <td class="negative">(44.141.264)</td>
+      </tr>
+      <tr>
+        <td>Agosto 2026 (est.)</td>
+        <td>810.021</td>
+        <td class="negative">17.400.000</td>
+        <td class="negative">(16.589.979)</td>
+        <td class="negative">(60.731.243)</td>
+      </tr>
+      <tr>
+        <td>Septiembre 2026 (est.)</td>
+        <td>810.021</td>
+        <td class="negative">17.400.000</td>
+        <td class="negative">(16.589.979)</td>
+        <td class="negative">(77.321.222)</td>
+      </tr>
+      <tr>
+        <td>Octubre 2026 (est.)</td>
+        <td>810.021</td>
+        <td class="negative">17.400.000</td>
+        <td class="negative">(16.589.979)</td>
+        <td class="negative">(93.911.201)</td>
+      </tr>
+      <tr>
+        <td>Noviembre 2026 (est.)</td>
+        <td>810.021</td>
+        <td class="negative">17.400.000</td>
+        <td class="negative">(16.589.979)</td>
+        <td class="negative">(110.501.180)</td>
+      </tr>
+      <tr>
+        <td>Diciembre 2026 (est.)</td>
+        <td>810.021</td>
+        <td class="negative">17.400.000</td>
+        <td class="negative">(16.589.979)</td>
+        <td class="negative">(127.091.159)</td>
+      </tr>
+      <tr class="row-total">
+        <td><strong>CIERRE DIC 2026 (proyectado)</strong></td>
+        <td><strong>~85.428.452</strong></td>
+        <td class="negative"><strong>~212.519.611</strong></td>
+        <td class="negative"><strong>~(127.091.159)</strong></td>
+        <td class="negative"><strong>~(127.091.159)</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="page-break">
+
+<!-- ═══════════════ SECCIÓN 4: RECOMENDACIONES ═══════════════ -->
+<div class="section">
+  <div class="section-title">
+    <span>4. RECOMENDACIONES DE LA GERENCIA FINANCIERA</span>
+    <span class="tag">CFO</span>
+  </div>
+
+  <p class="body">En vista del análisis presentado, la Gerencia Financiera eleva las siguientes recomendaciones de acción inmediata y estratégica al Directorio y Gerencia General:</p>
+
+  <ul class="rec-list">
+    <li class="rec-item">
+      <div class="rec-number urgent">1</div>
+      <div class="rec-content">
+        <div class="rec-title">REVISIÓN URGENTE DE TEMPANO II <span class="priority p-alta">PRIORIDAD ALTA</span></div>
+        <div class="rec-desc">TEMPANO II genera $0 en ingresos y consume $3.1M/mes ($15.5M acumulados). Se debe evaluar: (a) activación comercial de la embarcación para generar ingresos, (b) reducción de costos erogables (muellaje $800K/mes), (c) análisis de viabilidad de venta o arrendamiento del activo. La depreciación de $2.1M/mes ($10.6M acum) sugiere que es un activo de valor significativo que está siendo subutilizado.</div>
+      </div>
+    </li>
+    <li class="rec-item">
+      <div class="rec-number urgent">2</div>
+      <div class="rec-content">
+        <div class="rec-title">PLAN DE CONTINGENCIA FINANCIERA FUERA DE TEMPORADA <span class="priority p-alta">PRIORIDAD ALTA</span></div>
+        <div class="rec-desc">La empresa carece de cobertura financiera para los meses sin pesca. Se requiere: (a) establecer una reserva operacional equivalente a 3 meses de costos (~$55M), (b) negociar una línea de crédito de contingencia, (c) analizar contratos de trabajo con cláusulas de temporada o suspensión parcial de labores en meses de baja actividad para reducir el 64% de costos fijos en remuneraciones de T-III.</div>
+      </div>
+    </li>
+    <li class="rec-item">
+      <div class="rec-number">3</div>
+      <div class="rec-content">
+        <div class="rec-title">DIVERSIFICACIÓN DE FUENTES DE INGRESO <span class="priority p-media">PRIORIDAD MEDIA</span></div>
+        <div class="rec-desc">El 94.9% de los ingresos provienen de TEMPANO III, con concentración en 3 meses. Se debe explorar: (a) operaciones de TEMPANO III durante temporada baja (otras especies, servicios portuarios), (b) monetizar TEMPANO I con un contrato de servicio de mayor valor, (c) arriendos de embarcaciones a terceros en períodos de baja faena.</div>
+      </div>
+    </li>
+    <li class="rec-item">
+      <div class="rec-number">4</div>
+      <div class="rec-content">
+        <div class="rec-title">OPTIMIZACIÓN DE COSTOS VARIABLES TEMPANO III <span class="priority p-media">PRIORIDAD MEDIA</span></div>
+        <div class="rec-desc">Los costos de TEMPANO III en mayo ($15.6M) son mayores que en abril ($11.3M) pese a no tener ingresos, lo que sugiere mantención mayor o liquidación de faena. El costo de remuneraciones en mayo ($12.5M) es significativamente superior al promedio ($9.2M/mes). Se recomienda: (a) auditar la justificación del incremento de costos en mayo, (b) revisar la política de remuneraciones en períodos de inactividad.</div>
+      </div>
+    </li>
+    <li class="rec-item">
+      <div class="rec-number">5</div>
+      <div class="rec-content">
+        <div class="rec-title">IMPLEMENTAR PRESUPUESTO MENSUAL POR CC <span class="priority p-media">PRIORIDAD MEDIA</span></div>
+        <div class="rec-desc">La empresa no cuenta con presupuesto mensual explícito que permita medir desviaciones. Se recomienda implementar un sistema de control presupuestario con alertas automáticas por centro de costo, que incluya: (a) budget anual por CC aprobado por Directorio, (b) reporte mensual de desviación vs. budget, (c) mecanismos de alerta temprana para costos fuera de rango.</div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- SEMÁFORO FINANCIERO -->
+  <h3 style="margin-top:28px">4.1 Semáforo de Salud Financiera por Centro de Costo</h3>
+
+  <table style="margin-top:12px">
+    <thead>
+      <tr>
+        <th>Indicador</th>
+        <th>TEMPANO I</th>
+        <th>TEMPANO II</th>
+        <th>TEMPANO III</th>
+        <th>EMPRESA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Generación de Ingresos</td>
+        <td style="text-align:center">🟢 Estable</td>
+        <td style="text-align:center">🔴 Nulo</td>
+        <td style="text-align:center">🟡 Estacional</td>
+        <td style="text-align:center">🔴 Crítico</td>
+      </tr>
+      <tr>
+        <td>Control de Costos</td>
+        <td style="text-align:center">🟢 Bien</td>
+        <td style="text-align:center">🟡 Mejorable</td>
+        <td style="text-align:center">🟡 Atención</td>
+        <td style="text-align:center">🟡 Atención</td>
+      </tr>
+      <tr>
+        <td>Rentabilidad</td>
+        <td style="text-align:center">🟢 6.6%</td>
+        <td style="text-align:center">🔴 N/A</td>
+        <td style="text-align:center">🟡 5.6% (acum)</td>
+        <td style="text-align:center">🔴 –13.7%</td>
+      </tr>
+      <tr>
+        <td>Sostenibilidad</td>
+        <td style="text-align:center">🟢 Alta</td>
+        <td style="text-align:center">🔴 Inviable solo</td>
+        <td style="text-align:center">🔴 Sin temporada</td>
+        <td style="text-align:center">🔴 En Riesgo</td>
+      </tr>
+      <tr>
+        <td>Proyección 2H 2026</td>
+        <td style="text-align:center">🟢 Positivo</td>
+        <td style="text-align:center">🔴 Déficit</td>
+        <td style="text-align:center">🔴 Sin ingresos</td>
+        <td style="text-align:center">🔴 Crítico</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<div class="report-footer">
+  <span class="confidential">CONFIDENCIAL — USO INTERNO</span>
+  <p style="margin-top:8px">Informe preparado por Gerencia de Finanzas — TEMPANO | Datos fuente: Balance CC Tempano 2026.xlsx (Enero–Mayo 2026)</p>
+  <p>Generado el 24 de Julio de 2026 | Análisis realizado con soporte INNEXA Business Agent</p>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
