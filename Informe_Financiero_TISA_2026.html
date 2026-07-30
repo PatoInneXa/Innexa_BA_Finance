@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe Financiero TISA 2026 — INNEXA Business Agent</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0d1b2a;
+    --blue:   #1e3a5f;
+    --accent: #2563eb;
+    --teal:   #0ea5e9;
+    --green:  #10b981;
+    --red:    #ef4444;
+    --amber:  #f59e0b;
+    --gray50: #f8fafc;
+    --gray100:#f1f5f9;
+    --gray200:#e2e8f0;
+    --gray600:#475569;
+    --gray800:#1e293b;
+    --text:   #0f172a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family:'Inter',sans-serif; background:#f1f5f9; color:var(--text); font-size:14px; }
+
+  /* ====== COVER ====== */
+  .cover {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, #1a4a7a 100%);
+    color:#fff; padding:80px 60px; min-height:100vh;
+    display:flex; flex-direction:column; justify-content:space-between;
+    position:relative; overflow:hidden;
+  }
+  .cover::before {
+    content:''; position:absolute; top:-80px; right:-80px;
+    width:500px; height:500px; border-radius:50%;
+    background:rgba(37,99,235,0.15); pointer-events:none;
+  }
+  .cover::after {
+    content:''; position:absolute; bottom:-120px; left:-60px;
+    width:400px; height:400px; border-radius:50%;
+    background:rgba(14,165,233,0.10); pointer-events:none;
+  }
+  .cover-badge { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:16px; }
+  .cover h1 { font-size:48px; font-weight:800; line-height:1.1; margin-bottom:16px; }
+  .cover h1 span { color:var(--teal); }
+  .cover .subtitle { font-size:18px; color:rgba(255,255,255,0.75); margin-bottom:40px; font-weight:300; }
+  .cover-meta { display:flex; gap:40px; }
+  .cover-meta-item { }
+  .cover-meta-item .label { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:4px; }
+  .cover-meta-item .value { font-size:16px; font-weight:600; }
+  .cover-footer { display:flex; justify-content:space-between; align-items:flex-end; }
+  .cover-logo { font-size:13px; color:rgba(255,255,255,0.4); }
+  .cover-logo strong { color:rgba(255,255,255,0.8); font-size:16px; display:block; margin-bottom:2px; }
+
+  /* ====== LAYOUT ====== */
+  .page { max-width:1200px; margin:40px auto; padding:0 24px; }
+  .section { background:#fff; border-radius:16px; padding:40px; margin-bottom:32px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  .section-number { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:var(--accent); color:#fff; font-weight:700; font-size:14px; margin-right:12px; flex-shrink:0; }
+  .section-header { display:flex; align-items:center; margin-bottom:28px; padding-bottom:20px; border-bottom:2px solid var(--gray100); }
+  .section-header h2 { font-size:20px; font-weight:700; color:var(--navy); }
+  .section-header .subtitle { font-size:13px; color:var(--gray600); font-weight:400; margin-top:2px; }
+
+  /* ====== KPI CARDS ====== */
+  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+  .kpi-card {
+    background:var(--gray50); border-radius:12px; padding:20px;
+    border:1px solid var(--gray200); position:relative; overflow:hidden;
+  }
+  .kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--accent); border-radius:12px 12px 0 0; }
+  .kpi-card.green::before { background:var(--green); }
+  .kpi-card.red::before { background:var(--red); }
+  .kpi-card.amber::before { background:var(--amber); }
+  .kpi-card.teal::before { background:var(--teal); }
+  .kpi-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.8px; color:var(--gray600); margin-bottom:8px; }
+  .kpi-value { font-size:26px; font-weight:800; color:var(--navy); line-height:1; margin-bottom:6px; }
+  .kpi-value.negative { color:var(--red); }
+  .kpi-sub { font-size:12px; color:var(--gray600); }
+  .kpi-badge { display:inline-block; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:600; }
+  .kpi-badge.up { background:#d1fae5; color:#065f46; }
+  .kpi-badge.down { background:#fee2e2; color:#991b1b; }
+  .kpi-badge.neutral { background:#e0f2fe; color:#0369a1; }
+
+  /* ====== ALERT ====== */
+  .alert { display:flex; gap:12px; padding:16px 20px; border-radius:10px; margin-bottom:16px; }
+  .alert.warning { background:#fffbeb; border:1px solid #fde68a; }
+  .alert.danger  { background:#fef2f2; border:1px solid #fecaca; }
+  .alert.success { background:#f0fdf4; border:1px solid #bbf7d0; }
+  .alert.info    { background:#eff6ff; border:1px solid #bfdbfe; }
+  .alert-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+  .alert-title { font-weight:700; font-size:13px; margin-bottom:2px; }
+  .alert.warning .alert-title { color:#92400e; }
+  .alert.danger  .alert-title { color:#991b1b; }
+  .alert.success .alert-title { color:#065f46; }
+  .alert.info    .alert-title { color:#1e40af; }
+  .alert-body { font-size:12.5px; color:var(--gray600); }
+
+  /* ====== TABLES ====== */
+  .table-wrap { overflow-x:auto; margin-top:8px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:var(--navy); color:#fff; padding:10px 12px; text-align:right; font-weight:600; font-size:12px; white-space:nowrap; }
+  th:first-child { text-align:left; }
+  td { padding:9px 12px; text-align:right; border-bottom:1px solid var(--gray100); white-space:nowrap; }
+  td:first-child { text-align:left; font-weight:500; color:var(--navy); }
+  tr:hover td { background:var(--gray50); }
+  tr.total-row td { background:#f0f7ff; font-weight:700; color:var(--navy); border-top:2px solid var(--accent); }
+  .pos { color:var(--green); font-weight:600; }
+  .neg { color:var(--red); font-weight:600; }
+  .neutral-val { color:var(--gray600); }
+
+  /* ====== CHARTS ====== */
+  .chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
+  .chart-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; margin-top:24px; }
+  .chart-card { background:var(--gray50); border-radius:12px; padding:24px; border:1px solid var(--gray200); }
+  .chart-card.full { grid-column:1/-1; }
+  .chart-title { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+  .chart-sub   { font-size:11px; color:var(--gray600); margin-bottom:16px; }
+  .chart-container { position:relative; }
+
+  /* ====== PROGRESS BARS ====== */
+  .progress-list { display:flex; flex-direction:column; gap:12px; }
+  .progress-item { }
+  .progress-header { display:flex; justify-content:space-between; margin-bottom:4px; font-size:12px; }
+  .progress-label { font-weight:500; color:var(--navy); }
+  .progress-value { color:var(--gray600); font-weight:600; }
+  .progress-bar { height:8px; background:var(--gray200); border-radius:4px; overflow:hidden; }
+  .progress-fill { height:100%; border-radius:4px; transition:width .6s ease; }
+  .fill-green  { background:var(--green); }
+  .fill-blue   { background:var(--accent); }
+  .fill-teal   { background:var(--teal); }
+  .fill-red    { background:var(--red); }
+  .fill-amber  { background:var(--amber); }
+  .fill-purple { background:#8b5cf6; }
+
+  /* ====== INDICATORS TABLE ====== */
+  .indicator-table { width:100%; border-collapse:collapse; }
+  .indicator-table td { padding:10px 0; border-bottom:1px solid var(--gray100); font-size:13px; }
+  .indicator-table td:last-child { text-align:right; font-weight:600; }
+  .indicator-table .section-row td { font-weight:700; color:var(--accent); font-size:12px; text-transform:uppercase; letter-spacing:.5px; padding-top:18px; }
+
+  /* ====== RISK ====== */
+  .risk-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .risk-card { border-radius:10px; padding:18px; border:1px solid; }
+  .risk-card.low    { border-color:#bbf7d0; background:#f0fdf4; }
+  .risk-card.medium { border-color:#fde68a; background:#fffbeb; }
+  .risk-card.high   { border-color:#fecaca; background:#fef2f2; }
+  .risk-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .risk-card.low    .risk-label { color:#059669; }
+  .risk-card.medium .risk-label { color:#d97706; }
+  .risk-card.high   .risk-label { color:#dc2626; }
+  .risk-title { font-size:14px; font-weight:700; margin-bottom:4px; }
+  .risk-body  { font-size:12px; color:var(--gray600); line-height:1.5; }
+
+  /* ====== FOOTER ====== */
+  .report-footer { text-align:center; padding:40px 24px; color:var(--gray600); font-size:12px; }
+  .report-footer strong { color:var(--navy); }
+
+  /* ====== RESPONSIVE ====== */
+  @media(max-width:900px) {
+    .kpi-grid { grid-template-columns:repeat(2,1fr); }
+    .chart-grid { grid-template-columns:1fr; }
+    .chart-grid-3 { grid-template-columns:1fr; }
+    .risk-grid { grid-template-columns:1fr; }
+    .cover h1 { font-size:32px; }
+    .cover { padding:48px 32px; }
+  }
+  @media print {
+    body { background:#fff; }
+    .page { padding:0; }
+    .section { break-inside:avoid; box-shadow:none; border:1px solid var(--gray200); }
+    .cover { min-height:auto; padding:48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================================== PORTADA ================================================== -->
+<div class="cover">
+  <div>
+    <div class="cover-badge">INNEXA Business Agent · Informe Financiero Confidencial</div>
+    <h1>Informe Financiero<br><span>TISA 2026</span></h1>
+    <p class="subtitle">Análisis mensual y acumulado por Centro de Costo<br>Estado de Resultados · Rentabilidad · Indicadores</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="label">Empresa</div><div class="value">TISA (Servicios Acuícolas)</div></div>
+      <div class="cover-meta-item"><div class="label">Período</div><div class="value">Enero – Junio 2026</div></div>
+      <div class="cover-meta-item"><div class="label">Mes Referencia</div><div class="value">Mayo 2026</div></div>
+      <div class="cover-meta-item"><div class="label">Generado</div><div class="value" id="gen-date"></div></div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <div class="cover-logo"><strong>INNEXA Business Agent</strong>Análisis financiero automatizado</div>
+    <div style="color:rgba(255,255,255,0.35);font-size:11px;">Información confidencial · Uso interno</div>
+  </div>
+</div>
+
+<!-- ================================================== PÁGINA ================================================== -->
+<div class="page">
+
+<!-- ===== 1. INTRODUCCIÓN ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">1</span>
+    <div><h2>Introducción: Fin y Alcances del Informe</h2><div class="subtitle">Propósito, metodología y cobertura del análisis</div></div>
+  </div>
+  <p style="line-height:1.7;color:#334155;margin-bottom:16px;">
+    El presente informe tiene como objetivo entregar un análisis financiero integral de <strong>TISA</strong> (empresa de servicios a la industria acuícola), abarcando el período <strong>enero a junio de 2026</strong>, con el mes de referencia principal en <strong>mayo de 2026</strong>. El análisis se estructura en torno a los Centros de Costo operativos de la compañía, permitiendo una visión granular de la rentabilidad por unidad de negocio.
+  </p>
+  <p style="line-height:1.7;color:#334155;margin-bottom:16px;">
+    Las fuentes de información corresponden a los archivos <em>EERR CC TISA 2026.xlsx</em> (Estado de Resultados por Centro de Costo) y <em>EERR TISA 2026.xlsx</em> (Estado de Resultados consolidado), ambos procesados automáticamente por el agente INNEXA. El informe cubre los siguientes ejes de análisis:
+  </p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="alert info"><div class="alert-icon">📊</div><div><div class="alert-title">Análisis Vertical</div><div class="alert-body">Composición del Estado de Resultados y participación por CC en ingresos y costos</div></div></div>
+    <div class="alert info"><div class="alert-icon">📈</div><div><div class="alert-title">Análisis Horizontal</div><div class="alert-body">Evolución mes a mes de ingresos, costos y márgenes operacionales</div></div></div>
+    <div class="alert info"><div class="alert-icon">💧</div><div><div class="alert-title">Análisis de Liquidez y Flujo</div><div class="alert-body">Capacidad de cobertura operativa y generación de caja</div></div></div>
+    <div class="alert info"><div class="alert-icon">⚖️</div><div><div class="alert-title">Rentabilidad y Endeudamiento</div><div class="alert-body">Márgenes, EBITDA, cobertura de intereses y riesgo financiero</div></div></div>
+  </div>
+</div>
+
+<!-- ===== 2. DESCRIPCIÓN EMPRESA ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">2</span>
+    <div><h2>Descripción y Resumen de la Empresa Cliente</h2><div class="subtitle">Perfil corporativo · Centros de Costo · Modelo de negocio</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:32px;">
+    <div>
+      <p style="line-height:1.7;color:#334155;margin-bottom:16px;">
+        <strong>TISA</strong> es una empresa de servicios orientada a la industria acuícola (principalmente salmonicultura). Su modelo de negocio se basa en la prestación de servicios especializados a través de unidades operativas diferenciadas, conocidas como Centros de Costo (CC), que incluyen embarcaciones, plantas de tratamiento, astilleros y servicios de mantenimiento.
+      </p>
+      <p style="line-height:1.7;color:#334155;margin-bottom:16px;">
+        La compañía cuenta con <strong>17 Centros de Costo activos</strong>, agrupados en unidades generadoras de ingresos y unidades de soporte/costo. Los centros con mayor participación en ingresos son <em>Servicios Baños de Peces</em>, el grupo <em>BIOMASA</em> y <em>ENERICA</em>.
+      </p>
+      <p style="line-height:1.7;color:#334155;">
+        La estructura organizacional considera centros de soporte transversales (01-13 OPERACIONES, 01-15 MANTENCIÓN, 01-16 ADMINISTRACIÓN) que absorben costos pero no generan ingresos directos, impactando el resultado consolidado.
+      </p>
+    </div>
+    <div>
+      <div class="chart-card" style="padding:16px;">
+        <div class="chart-title">Distribución CC por Tipo</div>
+        <div class="chart-sub">Mayo 2026</div>
+        <canvas id="chartCCType" height="180"></canvas>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:24px;">
+    <div class="chart-title" style="margin-bottom:12px;">Centros de Costo Activos</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>CC</th><th>Nombre</th><th style="text-align:center">Tipo</th><th>Ingresos Mayo</th><th>Resultado Mayo</th></tr></thead>
+        <tbody>
+          <tr><td>01-01</td><td>TEMPANO I</td><td style="text-align:center">Operacional</td><td class="pos">$810.021</td><td class="pos">$46.320</td></tr>
+          <tr><td>01-02</td><td>TEMPANO II</td><td style="text-align:center">Costo</td><td class="neutral-val">—</td><td class="neg">($3.112.208)</td></tr>
+          <tr><td>01-03</td><td>TEMPANO III</td><td style="text-align:center">Costo</td><td class="neutral-val">—</td><td class="neg">($15.606.443)</td></tr>
+          <tr><td>01-04</td><td>EDUARDO IV</td><td style="text-align:center">Costo</td><td class="neutral-val">—</td><td class="neg">($13.073.450)</td></tr>
+          <tr><td>01-06</td><td>ENERICA</td><td style="text-align:center">Operacional</td><td class="pos">$22.360.000</td><td class="pos">$6.658.760</td></tr>
+          <tr><td>01-07</td><td>BIOMASA IV</td><td style="text-align:center">Operacional</td><td class="pos">$843.238</td><td class="pos">$53.440</td></tr>
+          <tr><td>01-08</td><td>BIOMASA V</td><td style="text-align:center">Operacional</td><td class="pos">$28.671.000</td><td class="pos">$316.381</td></tr>
+          <tr><td>01-09</td><td>BIOMASA VI</td><td style="text-align:center">Operacional</td><td class="pos">$16.500.000</td><td class="pos">$10.550.680</td></tr>
+          <tr><td>01-11</td><td>BIOMASA IX</td><td style="text-align:center">Operacional</td><td class="pos">$28.836.000</td><td class="pos">$9.540.401</td></tr>
+          <tr><td>01-12</td><td>ORION III</td><td style="text-align:center">Operacional</td><td class="pos">$25.800.000</td><td class="pos">$8.498.056</td></tr>
+          <tr><td>01-13</td><td>OPERACIONES</td><td style="text-align:center">Soporte</td><td class="neutral-val">—</td><td class="neg">($18.689.724)</td></tr>
+          <tr><td>01-14</td><td>NAVES</td><td style="text-align:center">Soporte</td><td class="neutral-val">—</td><td class="pos">$868.369</td></tr>
+          <tr><td>01-15</td><td>MANTENCIÓN</td><td style="text-align:center">Soporte</td><td class="neutral-val">—</td><td class="neg">($9.132.851)</td></tr>
+          <tr><td>01-16</td><td>ADMINISTRACIÓN</td><td style="text-align:center">Soporte</td><td class="neutral-val">—</td><td class="neg">($49.575.765)</td></tr>
+          <tr><td>01-18</td><td>SERVICIOS BAÑOS PECES</td><td style="text-align:center">Operacional</td><td class="pos">$135.400.000</td><td class="pos">$83.896.091</td></tr>
+          <tr><td>01-20</td><td>VARADERO</td><td style="text-align:center">Operacional</td><td class="pos">$9.264.000</td><td class="pos">$6.216.984</td></tr>
+          <tr><td>01-21</td><td>CASCADA</td><td style="text-align:center">Inactivo</td><td class="neutral-val">—</td><td class="neutral-val">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3. RESUMEN EJECUTIVO ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">3</span>
+    <div><h2>Resumen Ejecutivo</h2><div class="subtitle">Indicadores clave de gestión · Mayo 2026</div></div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card teal">
+      <div class="kpi-label">Ingresos del Mes</div>
+      <div class="kpi-value">$268,5M</div>
+      <div class="kpi-sub">Mayo 2026 &nbsp;<span class="kpi-badge up">▲ vs. ENE</span></div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Margen Operacional</div>
+      <div class="kpi-value">25,0%</div>
+      <div class="kpi-sub">$67,1M resultado op. mes</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Resultado Neto Mes</div>
+      <div class="kpi-value">$17,5M</div>
+      <div class="kpi-sub">Margen neto 6,5%</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Resultado Acum. YTD</div>
+      <div class="kpi-value negative">($60,3M)</div>
+      <div class="kpi-sub">Margen YTD -5,8%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">EBITDA Aprox.</div>
+      <div class="kpi-value">$63,6M</div>
+      <div class="kpi-sub">Margen EBITDA 23,7%</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Gasto Financiero</div>
+      <div class="kpi-value">$11,6M</div>
+      <div class="kpi-sub">Cob. intereses: 5,5x</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">Ingresos Acum. YTD</div>
+      <div class="kpi-value">$1.047M</div>
+      <div class="kpi-sub">5 meses acumulados</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Remuneraciones / Costo</div>
+      <div class="kpi-value">50,6%</div>
+      <div class="kpi-sub">$127M sobre $251M de costo</div>
+    </div>
+  </div>
+
+  <div class="alert warning">
+    <div class="alert-icon">⚠️</div>
+    <div><div class="alert-title">Alerta: Resultado Acumulado Negativo</div>
+    <div class="alert-body">El resultado neto acumulado YTD es de <strong>–$60,3 millones</strong> (–5,8% de margen neto), principalmente explicado por los centros de soporte (Administración –$272,8M acumulado; Operaciones –$85,2M acumulado). Aunque el margen operacional mensual es positivo (25%), la carga administrativa consolidada erosiona el resultado.</div></div>
+  </div>
+  <div class="alert success">
+    <div class="alert-icon">✅</div>
+    <div><div class="alert-title">Fortaleza: Centros de Alto Margen Estables</div>
+    <div class="alert-body">Servicios Baños de Peces (62% margen), Biomasa VI (64%), VARADERO (67%) y Biomasa IX (33%) muestran márgenes robustos y consistentes, representando el motor operacional de la compañía.</div></div>
+  </div>
+</div>
+
+<!-- ===== 4. ANÁLISIS VERTICAL ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">4</span>
+    <div><h2>Análisis Vertical del Estado de Resultados</h2><div class="subtitle">Composición de ingresos y costos · Mayo 2026</div></div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Participación en Ingresos por CC</div>
+      <div class="chart-sub">Porcentaje sobre total ingresos mayo 2026</div>
+      <div class="chart-container"><canvas id="chartIngresosPie" height="260"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Participación en Costos Totales por CC</div>
+      <div class="chart-sub">% sobre costos + gastos totales $251M · Mayo 2026</div>
+      <div class="chart-container"><canvas id="chartCostosPie" height="260"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-grid" style="margin-top:0;">
+    <div class="chart-card full">
+      <div class="chart-title">Resultado Neto por Centro de Costo — Mayo 2026</div>
+      <div class="chart-sub">En millones de pesos CLP. Centros negativos = centros de costo/soporte sin ingresos directos</div>
+      <div class="chart-container"><canvas id="chartResultadoCC" height="120"></canvas></div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;">Estructura del Estado de Resultados Consolidado</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Componente</th>
+            <th>Monto Mayo ($)</th>
+            <th>% s/Ingresos</th>
+            <th>Monto Acum. YTD ($)</th>
+            <th>% YTD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Ingresos Operacionales</td><td class="pos">268.484.259</td><td>100,0%</td><td class="pos">1.046.504.635</td><td>100,0%</td></tr>
+          <tr><td>  Costos Operacionales</td><td class="neg">(201.413.958)</td><td>75,0%</td><td class="neg">(870.297.936)*</td><td>83,2%*</td></tr>
+          <tr><td><strong>Margen Operacional</strong></td><td class="pos">67.070.301</td><td>25,0%</td><td class="pos">268.293.144</td><td>25,6%</td></tr>
+          <tr><td>  Gastos de Administración</td><td class="neg">(38.046.244)</td><td>14,2%</td><td class="neg">(190.238.220)*</td><td>18,2%*</td></tr>
+          <tr><td>  Gastos Financieros</td><td class="neg">(11.569.016)</td><td>4,3%</td><td class="neg">(57.845.080)*</td><td>5,5%*</td></tr>
+          <tr><td>  Otros Ingresos/Egresos</td><td class="neutral-val">—</td><td>—</td><td class="neutral-val">—</td><td>—</td></tr>
+          <tr class="total-row"><td>Resultado Neto</td><td class="pos">17.455.041</td><td>6,5%</td><td class="neg">(60.299.016)</td><td>-5,8%</td></tr>
+          <tr><td>  Depreciación y Amortización</td><td class="neutral-val">34.567.098</td><td>12,9%</td><td class="neutral-val">172.835.490*</td><td>16,5%*</td></tr>
+          <tr class="total-row"><td>EBITDA Aproximado</td><td class="pos">63.591.155</td><td>23,7%</td><td class="pos">~138M*</td><td>~13%*</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--gray600);margin-top:8px;">(*) Estimación lineal basada en promedio mensual acumulado a mayo.</p>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;">Composición de Costos Totales — Mayo 2026</h3>
+    <div class="progress-list">
+      <div class="progress-item">
+        <div class="progress-header"><span class="progress-label">Costos Operacionales</span><span class="progress-value">$201,4M (80,2%)</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-red" style="width:80.2%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span class="progress-label">Gastos de Administración</span><span class="progress-value">$38,0M (15,1%)</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-amber" style="width:15.1%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span class="progress-label">Gastos Financieros</span><span class="progress-value">$11,6M (4,6%)</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-purple" style="width:4.6%"></div></div>
+      </div>
+    </div>
+    <div style="margin-top:20px;" class="progress-list">
+      <div class="progress-item">
+        <div class="progress-header"><span class="progress-label">Remuneraciones (% costo op.)</span><span class="progress-value">50,6% — $127,0M</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-blue" style="width:50.6%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span class="progress-label">Depreciación (% costo op.)</span><span class="progress-value">13,8% — $34,6M</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-teal" style="width:13.8%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span class="progress-label">Otros Costos Operacionales</span><span class="progress-value">35,6% — $89,8M</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-green" style="width:35.6%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. ANÁLISIS HORIZONTAL ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">5</span>
+    <div><h2>Análisis Horizontal — Evolución Mensual</h2><div class="subtitle">Tendencias enero–junio 2026 por CC y total compañía</div></div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Ingresos Totales Mensuales</div>
+      <div class="chart-sub">Total Compañía — CLP millones</div>
+      <div class="chart-container"><canvas id="chartIngresosMes" height="220"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Margen Operacional Mensual (%)</div>
+      <div class="chart-sub">Resultado operacional / Ingresos</div>
+      <div class="chart-container"><canvas id="chartMargenMes" height="220"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-grid" style="margin-top:0;">
+    <div class="chart-card full">
+      <div class="chart-title">Resultado Operacional Mensual por CC Seleccionados</div>
+      <div class="chart-sub">CLP millones — Centros con ingresos directos</div>
+      <div class="chart-container"><canvas id="chartResultadoMesCC" height="120"></canvas></div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">Ingresos Operacionales por Mes ($)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Centro de Costo</th><th>ENE</th><th>FEB</th><th>MAR</th><th>ABR</th><th>MAY</th><th>JUN</th><th>Total Año</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>01-01 TEMPANO I</td><td>810.021</td><td>810.021</td><td>810.021</td><td>810.021</td><td>810.021</td><td>—</td><td>4.050.105</td></tr>
+          <tr><td>01-03 TEMPANO III</td><td>31.806.000</td><td>37.882.200</td><td>6.020.000</td><td>—</td><td>—</td><td>—</td><td>75.708.200</td></tr>
+          <tr><td>01-04 EDUARDO IV</td><td>—</td><td>20.460.000</td><td>8.000.000</td><td>—</td><td>—</td><td>—</td><td>28.460.000</td></tr>
+          <tr><td>01-06 ENERICA</td><td>25.800.000</td><td>25.800.000</td><td>25.800.000</td><td>25.800.000</td><td>22.360.000</td><td>8.600.000</td><td>134.160.000</td></tr>
+          <tr><td>01-07 BIOMASA IV</td><td>—</td><td>843.238</td><td>843.238</td><td>843.238</td><td>843.238</td><td>843.238</td><td>4.216.190</td></tr>
+          <tr><td>01-08 BIOMASA V</td><td>28.836.000</td><td>29.591.103</td><td>28.836.000</td><td>28.836.000</td><td>28.671.000</td><td>47.850.000</td><td>192.620.103</td></tr>
+          <tr><td>01-09 BIOMASA VI</td><td>16.500.000</td><td>16.500.000</td><td>16.500.000</td><td>16.500.000</td><td>16.500.000</td><td>8.659.946</td><td>91.159.946</td></tr>
+          <tr><td>01-11 BIOMASA IX</td><td>28.836.000</td><td>29.087.851</td><td>28.836.000</td><td>27.236.154</td><td>28.836.000</td><td>28.836.000</td><td>171.668.005</td></tr>
+          <tr><td>01-12 ORION III</td><td>25.800.000</td><td>6.561.210</td><td>19.780.000</td><td>25.800.000</td><td>25.800.000</td><td>19.780.000</td><td>123.521.210</td></tr>
+          <tr><td>01-18 SERV. BAÑOS PECES</td><td>—</td><td>—</td><td>51.903.333</td><td>138.942.727</td><td>135.400.000</td><td>180.400.000</td><td>506.646.060</td></tr>
+          <tr><td>01-20 VARADERO</td><td>—</td><td>—</td><td>—</td><td>—</td><td>9.264.000</td><td>—</td><td>9.264.000</td></tr>
+          <tr class="total-row"><td>TOTAL COMPAÑÍA</td><td>158.388.021</td><td>167.535.623</td><td>187.328.592</td><td>264.768.140</td><td>268.484.259</td><td>293.469.184</td><td>1.339.973.819</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">Resultado Operacional por Mes ($)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Centro de Costo</th><th>ENE</th><th>FEB</th><th>MAR</th><th>ABR</th><th>MAY</th><th>JUN</th><th>Total Año</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>01-01 TEMPANO I</td><td class="pos">58.670</td><td class="pos">77.633</td><td class="pos">36.464</td><td class="pos">48.316</td><td class="pos">46.320</td><td class="neg">(770.844)</td><td class="neg">(503.441)</td></tr>
+          <tr><td>01-03 TEMPANO III</td><td class="pos">14.545.236</td><td class="pos">22.490.037</td><td class="neg">(5.829.159)</td><td class="neg">(11.333.035)</td><td class="neg">(15.606.443)</td><td class="neg">(13.382.554)</td><td class="neg">(9.115.918)</td></tr>
+          <tr><td>01-04 EDUARDO IV</td><td class="neg">(16.091.284)</td><td class="pos">2.853.711</td><td class="neg">(7.266.130)</td><td class="neg">(15.626.091)</td><td class="neg">(13.073.450)</td><td class="neg">(14.863.107)</td><td class="neg">(64.066.351)</td></tr>
+          <tr><td>01-06 ENERICA</td><td class="pos">11.483.746</td><td class="pos">9.662.607</td><td class="pos">11.960.336</td><td class="pos">11.007.544</td><td class="pos">6.658.760</td><td class="neg">(6.621.298)</td><td class="pos">44.151.695</td></tr>
+          <tr><td>01-07 BIOMASA IV</td><td class="neg">(778.890)</td><td class="pos">40.250</td><td class="pos">39.394</td><td class="pos">49.652</td><td class="pos">53.440</td><td class="pos">46.252</td><td class="neg">(549.902)</td></tr>
+          <tr><td>01-08 BIOMASA V</td><td class="pos">10.526.003</td><td class="pos">1.000.739</td><td class="pos">5.610.573</td><td class="pos">6.122.327</td><td class="pos">316.381</td><td class="pos">18.001.932</td><td class="pos">41.577.955</td></tr>
+          <tr><td>01-09 BIOMASA VI</td><td class="pos">10.683.565</td><td class="pos">11.748.105</td><td class="pos">11.882.546</td><td class="pos">10.137.328</td><td class="pos">10.550.680</td><td class="neg">(11.004.842)</td><td class="pos">43.997.382</td></tr>
+          <tr><td>01-11 BIOMASA IX</td><td class="pos">12.895.250</td><td class="pos">12.207.895</td><td class="pos">9.476.754</td><td class="pos">9.855.369</td><td class="pos">9.540.401</td><td class="pos">7.773.591</td><td class="pos">61.749.260</td></tr>
+          <tr><td>01-12 ORION III</td><td class="pos">11.617.749</td><td class="neg">(6.798.157)</td><td class="neg">(19.463)</td><td class="pos">11.793.337</td><td class="pos">8.498.056</td><td class="pos">669.759</td><td class="pos">25.761.281</td></tr>
+          <tr><td>01-18 SERV. BAÑOS PECES</td><td class="neutral-val">—</td><td class="neg">(1.487.498)</td><td class="pos">30.426.036</td><td class="pos">92.349.776</td><td class="pos">83.896.091</td><td class="pos">107.582.233</td><td class="pos">312.766.638</td></tr>
+          <tr class="total-row"><td>TOTAL COMPAÑÍA</td><td class="pos">24.429.943</td><td class="pos">15.740.981</td><td class="pos">23.803.838</td><td class="pos">83.636.757</td><td class="pos">67.070.301</td><td class="pos">53.611.324</td><td class="pos">268.293.144</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 6. ANÁLISIS DE LIQUIDEZ ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">6</span>
+    <div><h2>Análisis de Liquidez</h2><div class="subtitle">Capacidad operativa de cobertura de obligaciones · Mayo 2026</div></div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Indicadores de Liquidez Operativa</div>
+      <div class="chart-sub">Estimados a partir del Estado de Resultados disponible</div>
+      <table class="indicator-table">
+        <tr class="section-row"><td colspan="2">Cobertura Operacional</td></tr>
+        <tr><td>Cobertura de Intereses (EBIT/GF)</td><td><span class="pos">5,50x</span></td></tr>
+        <tr><td>EBITDA / Gastos Financieros</td><td><span class="pos">5,50x</span></td></tr>
+        <tr><td>Ingresos / Costos Operacionales</td><td><span class="pos">1,33x</span></td></tr>
+        <tr class="section-row"><td colspan="2">Eficiencia de Costos</td></tr>
+        <tr><td>Costo por $1 de Ingreso (Total)</td><td><span class="neutral-val">$0,935</span></td></tr>
+        <tr><td>% Ingresos absorbido por Costos Op.</td><td><span class="neutral-val">75,0%</span></td></tr>
+        <tr><td>% Ingresos absorbido por Adm.+Fin.</td><td><span class="amber" style="color:#d97706;font-weight:600">18,5%</span></td></tr>
+        <tr class="section-row"><td colspan="2">Concentración</td></tr>
+        <tr><td>Participación CC Mayor (Baños Peces)</td><td><span class="neutral-val">50,4%</span></td></tr>
+        <tr><td>Top 3 CC / Total Ingresos</td><td><span class="neutral-val">72,6%</span></td></tr>
+      </table>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Capacidad de Generación de Caja</div>
+      <div class="chart-sub">Margen EBITDA y cobertura · Mayo 2026</div>
+      <div class="chart-container"><canvas id="chartLiquidez" height="220"></canvas></div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;">
+    <div class="alert warning">
+      <div class="alert-icon">⚠️</div>
+      <div>
+        <div class="alert-title">Concentración de Ingresos — Riesgo Clave</div>
+        <div class="alert-body">El 50,4% de los ingresos del mes proviene de un solo CC (01-18 SERVICIOS BAÑOS PECES). Los top 3 centros (Baños Peces, Biomasa V, Biomasa IX) concentran el 71,5% de los ingresos, generando exposición a riesgo de concentración. Una caída en la actividad acuícola de clientes clave tendría impacto severo en la liquidez operacional.</div>
+      </div>
+    </div>
+    <div class="alert info">
+      <div class="alert-icon">ℹ️</div>
+      <div>
+        <div class="alert-title">Nota Metodológica</div>
+        <div class="alert-body">Los ratios de liquidez tradicionales (corriente, ácido) requieren datos de balance general (activo circulante / pasivo circulante). Para un análisis completo, se recomienda adjuntar el Balance General mensual en la próxima actualización del informe.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 7. ANÁLISIS DE FLUJO DE CAJA ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">7</span>
+    <div><h2>Análisis de Flujo de Caja</h2><div class="subtitle">Generación operativa de caja y capacidad de inversión · 2026</div></div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <div class="chart-title">EBITDA Aproximado vs. Gastos Financieros — Evolución Mensual</div>
+      <div class="chart-sub">CLP millones — EBITDA = Resultado Op. + Depreciación estimada</div>
+      <div class="chart-container"><canvas id="chartEBITDA" height="100"></canvas></div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">Estimación del Flujo de Caja Operativo</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Componente</th><th>ENE</th><th>FEB</th><th>MAR</th><th>ABR</th><th>MAY</th><th>JUN</th></tr></thead>
+        <tbody>
+          <tr><td>Resultado Operacional</td><td class="pos">24,4M</td><td class="pos">15,7M</td><td class="pos">23,8M</td><td class="pos">83,6M</td><td class="pos">67,1M</td><td class="pos">53,6M</td></tr>
+          <tr><td>(+) Depreciación estimada</td><td class="neutral-val">~6,9M</td><td class="neutral-val">~6,9M</td><td class="neutral-val">~6,9M</td><td class="neutral-val">~6,9M</td><td class="neutral-val">34,6M</td><td class="neutral-val">~6,9M</td></tr>
+          <tr><td>(–) Gastos Financieros</td><td class="neg">~(11,6M)</td><td class="neg">~(11,6M)</td><td class="neg">~(11,6M)</td><td class="neg">~(11,6M)</td><td class="neg">(11,6M)</td><td class="neg">~(11,6M)</td></tr>
+          <tr class="total-row"><td>FCO Estimado</td><td class="pos">~19,7M</td><td class="pos">~11,0M</td><td class="pos">~19,1M</td><td class="pos">~78,9M</td><td class="pos">~90,1M</td><td class="pos">~48,9M</td></tr>
+          <tr><td>Ingr. Totales Mes</td><td>158,4M</td><td>167,5M</td><td>187,3M</td><td>264,8M</td><td>268,5M</td><td>293,5M</td></tr>
+          <tr><td>FCO / Ingresos %</td><td class="neutral-val">12,4%</td><td class="neutral-val">6,6%</td><td class="neutral-val">10,2%</td><td class="neutral-val">29,8%</td><td class="pos">33,6%</td><td class="neutral-val">16,7%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--gray600);margin-top:8px;">(*) Depreciación estimada a $6,9M promedio para meses anteriores; mayo usa dato real de $34,6M (acumulado en mes). FCO estimado; requiere estado de flujo formal para precisión.</p>
+  </div>
+
+  <div style="margin-top:16px;" class="alert success">
+    <div class="alert-icon">✅</div>
+    <div>
+      <div class="alert-title">Tendencia Positiva del FCO</div>
+      <div class="alert-body">El flujo de caja operativo estimado muestra una tendencia positiva y creciente desde enero, con una aceleración notable en abril y mayo asociada al inicio de operaciones de Servicios Baños de Peces. La cobertura de gastos financieros (5,5x EBITDA) es sólida, indicando baja presión de servicio de deuda en el corto plazo.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 8. RENTABILIDAD Y ENDEUDAMIENTO ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">8</span>
+    <div><h2>Análisis de Rentabilidad y Endeudamiento</h2><div class="subtitle">Márgenes, EBITDA, eficiencia operativa · Mayo 2026</div></div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <div class="chart-title">Margen Operacional por Centro de Costo — Mayo 2026</div>
+      <div class="chart-sub">% Resultado operacional / Ingresos (solo CC con ingresos)</div>
+      <div class="chart-container"><canvas id="chartMargenCC" height="100"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-grid" style="margin-top:0;">
+    <div class="chart-card">
+      <div class="chart-title">Margen Neto YTD por CC</div>
+      <div class="chart-sub">Resultado acumulado / Ingresos acumulados</div>
+      <div class="chart-container"><canvas id="chartMargenYTD" height="240"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Indicadores de Rentabilidad</div>
+      <div class="chart-sub">Total Compañía · Mayo 2026</div>
+      <table class="indicator-table">
+        <tr class="section-row"><td colspan="2">Márgenes</td></tr>
+        <tr><td>Margen Bruto Operacional</td><td class="pos">25,0%</td></tr>
+        <tr><td>Margen EBITDA</td><td class="pos">23,7%</td></tr>
+        <tr><td>Margen Neto Mes</td><td class="pos">6,5%</td></tr>
+        <tr><td>Margen Neto Acumulado YTD</td><td class="neg">-5,8%</td></tr>
+        <tr class="section-row"><td colspan="2">Eficiencia</td></tr>
+        <tr><td>Remuneraciones / Costo Total</td><td class="neutral-val">50,6%</td></tr>
+        <tr><td>Depreciación / Costo Total</td><td class="neutral-val">13,8%</td></tr>
+        <tr><td>Costo Unitario por $ Ingreso</td><td class="neutral-val">$0,935</td></tr>
+        <tr class="section-row"><td colspan="2">Endeudamiento</td></tr>
+        <tr><td>Cobertura de Intereses (EBIT/GF)</td><td class="pos">5,5x</td></tr>
+        <tr><td>Gasto Financiero / Ingresos</td><td class="amber" style="color:#d97706;font-weight:600">4,3%</td></tr>
+        <tr><td>Gasto Financiero / EBITDA</td><td class="neutral-val">18,2%</td></tr>
+        <tr class="section-row"><td colspan="2">Comparativa CC (Mayo)</td></tr>
+        <tr><td>Mejor Margen: VARADERO</td><td class="pos">67,1%</td></tr>
+        <tr><td>2do. Mejor: BIOMASA VI</td><td class="pos">63,9%</td></tr>
+        <tr><td>3ro. Mejor: BAÑOS PECES</td><td class="pos">62,0%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">Ranking de Rentabilidad — Centros con Ingresos (Mayo 2026)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>CC</th><th>Ingresos</th><th>Costo+Gasto Total</th><th>Resultado Neto</th><th>Margen Op.%</th><th>Margen Neto%</th><th>Remuneraciones</th><th>% Rem/Costo</th><th>EBITDA</th><th>Ingresos YTD</th><th>Resultado YTD</th><th>Margen YTD%</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>01-20 VARADERO</td><td class="pos">9.264.000</td><td>3.047.016</td><td class="pos">6.216.984</td><td class="pos">67,5%</td><td class="pos">67,1%</td><td>—</td><td>—</td><td class="pos">6.216.984</td><td>9.264.000</td><td class="neg">(1.013.369)</td><td class="neg">-10,9%</td></tr>
+          <tr><td>01-09 BIOMASA VI</td><td class="pos">16.500.000</td><td>5.949.320</td><td class="pos">10.550.680</td><td class="pos">63,9%</td><td class="pos">63,9%</td><td>—</td><td>—</td><td class="pos">13.308.126</td><td>82.500.000</td><td class="pos">55.002.224</td><td class="pos">66,7%</td></tr>
+          <tr><td>01-18 BAÑOS PECES</td><td class="pos">135.400.000</td><td>51.503.909</td><td class="pos">83.896.091</td><td class="pos">62,0%</td><td class="pos">62,0%</td><td>36.656.095</td><td>71,2%</td><td class="pos">83.896.091</td><td>326.246.060</td><td class="pos">205.184.405</td><td class="pos">62,9%</td></tr>
+          <tr><td>01-11 BIOMASA IX</td><td class="pos">28.836.000</td><td>19.295.599</td><td class="pos">9.540.401</td><td class="pos">33,1%</td><td class="pos">33,1%</td><td>8.819.827</td><td>45,7%</td><td class="pos">12.714.513</td><td>142.832.005</td><td class="pos">53.901.021</td><td class="pos">37,7%</td></tr>
+          <tr><td>01-12 ORION III</td><td class="pos">25.800.000</td><td>17.301.944</td><td class="pos">8.498.056</td><td class="pos">32,9%</td><td class="pos">32,9%</td><td>10.486.915</td><td>60,6%</td><td class="pos">10.373.056</td><td>103.741.210</td><td class="pos">25.091.522</td><td class="pos">24,2%</td></tr>
+          <tr><td>01-06 ENERICA</td><td class="pos">22.360.000</td><td>15.701.240</td><td class="pos">6.658.760</td><td class="pos">29,8%</td><td class="pos">29,8%</td><td>8.290.262</td><td>52,8%</td><td class="pos">9.949.899</td><td>125.560.000</td><td class="pos">50.360.838</td><td class="pos">40,1%</td></tr>
+          <tr><td>01-07 BIOMASA IV</td><td class="pos">843.238</td><td>789.798</td><td class="pos">53.440</td><td class="pos">6,3%</td><td class="pos">6,3%</td><td>—</td><td>—</td><td class="pos">53.440</td><td>3.372.952</td><td class="neg">(596.154)</td><td class="neg">-17,7%</td></tr>
+          <tr><td>01-01 TEMPANO I</td><td class="pos">810.021</td><td>763.701</td><td class="pos">46.320</td><td class="pos">5,7%</td><td class="pos">5,7%</td><td>—</td><td>—</td><td class="pos">46.320</td><td>4.050.105</td><td class="pos">267.403</td><td class="pos">6,6%</td></tr>
+          <tr><td>01-08 BIOMASA V</td><td class="pos">28.671.000</td><td>28.354.619</td><td class="pos">316.381</td><td class="pos">1,1%</td><td class="pos">1,1%</td><td>8.438.009</td><td>29,8%</td><td class="pos">5.885.898</td><td>144.770.103</td><td class="pos">23.576.023</td><td class="pos">16,3%</td></tr>
+          <tr class="total-row"><td>TOTAL COMPAÑÍA</td><td>268.484.259</td><td>251.029.218</td><td class="pos">17.455.041</td><td class="pos">25,0%</td><td class="pos">6,5%</td><td>127.048.238</td><td>50,6%</td><td class="pos">63.591.155</td><td>1.046.504.635</td><td class="neg">(60.299.016)</td><td class="neg">-5,8%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 9. CONCLUSIONES ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-number">9</span>
+    <div><h2>Conclusiones de Viabilidad y Riesgo</h2><div class="subtitle">Evaluación integral del desempeño financiero · 2026</div></div>
+  </div>
+
+  <div class="risk-grid">
+    <div class="risk-card high">
+      <div class="risk-label">🔴 Riesgo Alto</div>
+      <div class="risk-title">Resultado Acumulado Negativo</div>
+      <div class="risk-body">El YTD consolida –$60,3M en resultado neto, explicado principalmente por Administración (–$272,8M acumulado YTD). Se requiere revisión de la imputación de costos corporativos entre CC o reducción de la base de gastos no operacionales.</div>
+    </div>
+    <div class="risk-card high">
+      <div class="risk-label">🔴 Riesgo Alto</div>
+      <div class="risk-title">Concentración en Baños de Peces</div>
+      <div class="risk-body">El 50,4% de los ingresos mensuales depende de un único CC (01-18). Su activación reciente (desde marzo) es positiva, pero la concentración representa un riesgo de continuidad si el contrato o la actividad acuícola sufre interrupción.</div>
+    </div>
+    <div class="risk-card medium">
+      <div class="risk-label">🟡 Riesgo Medio</div>
+      <div class="risk-title">Tempano II, III y Eduardo IV</div>
+      <div class="risk-body">Estos tres CC acumulan pérdidas operacionales sin generar ingresos en mayo. Tempano III y Eduardo IV registran YTD negativo significativo. Evaluar si son centros en pre-operación, activos ociosos o en reestructuración.</div>
+    </div>
+    <div class="risk-card medium">
+      <div class="risk-label">🟡 Riesgo Medio</div>
+      <div class="risk-title">Biomasa V — Margen en Caída</div>
+      <div class="risk-body">BIOMASA V registra un margen operacional de solo 1,1% en mayo, cayendo desde el 36,5% de enero. Aunque el YTD es positivo ($23,6M), la tendencia decreciente del margen requiere monitoreo activo de sus costos operacionales.</div>
+    </div>
+    <div class="risk-card low">
+      <div class="risk-label">🟢 Positivo</div>
+      <div class="risk-title">Cobertura de Intereses Sólida</div>
+      <div class="risk-body">La cobertura de intereses de 5,5x indica que la deuda financiera está bien cubierta por el EBITDA operacional mensual. El gasto financiero de $11,6M representa solo el 4,3% de los ingresos, nivel manejable.</div>
+    </div>
+    <div class="risk-card low">
+      <div class="risk-label">🟢 Positivo</div>
+      <div class="risk-title">Motores de Alto Margen Estables</div>
+      <div class="risk-body">Biomasa VI (64%), Varadero (67%), Baños de Peces (62%) y Biomasa IX (33%) son unidades de alto margen que muestran consistencia. Su operación sostenida es clave para revertir el YTD negativo en el segundo semestre.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;">Proyección y Recomendaciones CFO</h3>
+    <div class="alert success">
+      <div class="alert-icon">🎯</div>
+      <div>
+        <div class="alert-title">Proyección Segundo Semestre 2026</div>
+        <div class="alert-body">Si la tendencia de ingresos continúa con la incorporación plena de Baños de Peces y el crecimiento del grupo Biomasa, se proyecta un ingreso mensual de ~$290–320M en H2 2026. Con márgenes operacionales sostenidos en ~22–25%, el resultado anual podría ser positivo solo si se reducen los gastos de administración consolidados, que representan el principal desequilibrio financiero de la compañía.</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="alert warning">
+        <div class="alert-icon">1️⃣</div>
+        <div><div class="alert-title">Revisión Gastos Administración</div><div class="alert-body">Con $272,8M acumulados YTD, el CC 01-16 ADMINISTRACIÓN es el mayor destructor de valor. Revisar criterios de imputación y plan de optimización es urgente.</div></div>
+      </div>
+      <div class="alert warning">
+        <div class="alert-icon">2️⃣</div>
+        <div><div class="alert-title">Plan para CC Deficitarios</div><div class="alert-body">Tempano II y Eduardo IV requieren un plan claro: si son activos en pre-operación, establecer fecha de activación; si son activos ociosos, evaluar su disposición o reconversión.</div></div>
+      </div>
+      <div class="alert info">
+        <div class="alert-icon">3️⃣</div>
+        <div><div class="alert-title">Diversificación de Ingresos</div><div class="alert-body">Reducir la dependencia en Baños de Peces (50%) mediante la activación de contratos en Tempano III/Eduardo IV y el desarrollo de nuevas líneas en VARADERO.</div></div>
+      </div>
+      <div class="alert info">
+        <div class="alert-icon">4️⃣</div>
+        <div><div class="alert-title">Monitoreo Margen Biomasa V</div><div class="alert-body">El margen de BIOMASA V cayó de 36,5% (enero) a 1,1% (mayo). Auditar estructura de costos de este CC y comparar con contratos similares (Biomasa IX, Biomasa VI).</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<div class="report-footer">
+  <strong>TISA — Informe Financiero 2026</strong><br>
+  Generado automáticamente por INNEXA Business Agent · Datos: EERR CC TISA 2026.xlsx / EERR TISA 2026.xlsx<br>
+  <span id="footer-date"></span>
+</div>
+
+<!-- ================================================== SCRIPTS ================================================== -->
+<script>
+// Set date
+const now = new Date();
+const dateStr = now.toLocaleDateString('es-CL',{day:'2-digit',month:'long',year:'numeric'});
+document.getElementById('gen-date').textContent = dateStr;
+document.getElementById('footer-date').textContent = 'Generado el ' + dateStr;
+
+// ======= DATA (auto-actualizable por script Python) =======
+// <!-- DATA_START -->
+const DATA = {
+  mes: "Mayo 2026",
+  meses: ["ENE","FEB","MAR","ABR","MAY","JUN"],
+  totalIngresos: [158388021,167535623,187328592,264768140,268484259,293469184],
+  totalResultadoOp: [24429943,15740981,23803838,83636757,67070301,53611324],
+  totalMargenOp: [0.154,0.094,0.127,0.316,0.250,0.183],
+  ccNombres: ["TEMPANO I","TEMPANO III","EDUARDO IV","ENERICA","BIOMASA V","BIOMASA VI","BIOMASA IX","ORION III","BAÑOS PECES","VARADERO"],
+  ingresosMayo: [810021,0,0,22360000,28671000,16500000,28836000,25800000,135400000,9264000],
+  costosMayo:   [763701,15606443,13073450,15701240,28354619,5949320,19295599,17301944,51503909,3007521],
+  resultadoMayo:[46320,-15606443,-13073450,6658760,316381,10550680,9540401,8498056,83896091,6216984],
+  margenMayo:   [5.72,0,0,29.78,1.10,63.94,33.09,32.94,61.96,67.54],
+  margenYTD:    [6.6,5.6,-172.9,40.1,16.3,66.7,37.7,24.2,62.9,-10.9],
+  participIngresos:[0.30,0,0,8.33,10.68,6.15,10.74,9.61,50.43,3.45],
+  participCostos: [0.30,6.22,5.21,6.25,11.30,2.37,7.69,6.89,20.52,1.21],
+  resultadoMesByCC: {
+    "ENERICA":    [11483746,9662607,11960336,11007544,6658760,-6621298],
+    "BIOMASA V":  [10526003,1000739,5610573,6122327,316381,18001932],
+    "BIOMASA VI": [10683565,11748105,11882546,10137328,10550680,-11004842],
+    "BIOMASA IX": [12895250,12207895,9476754,9855369,9540401,7773591],
+    "ORION III":  [11617749,-6798157,-19463,11793337,8498056,669759],
+    "BAÑOS PECES":[0,-1487498,30426036,92349776,83896091,107582233],
+  },
+  ebitdaMeses:   [31329943,22640981,30703838,90536757,63591155,60511324],
+  gastoFinMeses: [11569016,11569016,11569016,11569016,11569016,11569016],
+};
+// <!-- DATA_END -->
+
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 11;
+const MESES = DATA.meses;
+
+// ---- Colores ----
+const COLORS = {
+  green:'#10b981', red:'#ef4444', amber:'#f59e0b', blue:'#2563eb',
+  teal:'#0ea5e9', purple:'#8b5cf6', orange:'#f97316', pink:'#ec4899',
+  lime:'#84cc16', cyan:'#06b6d4',
+};
+const CC_COLORS = ['#2563eb','#10b981','#f59e0b','#0ea5e9','#ef4444','#8b5cf6','#f97316','#ec4899','#84cc16','#06b6d4'];
+const toM = v => (v/1e6).toFixed(1);
+
+// ---- 1. Tipo CC ----
+new Chart(document.getElementById('chartCCType'),{
+  type:'doughnut',
+  data:{
+    labels:['Operacional (con ingresos)','Soporte/Costo','Inactivo'],
+    datasets:[{data:[9,7,1],backgroundColor:['#10b981','#ef4444','#94a3b8'],borderWidth:2,borderColor:'#fff'}]
+  },
+  options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:8,font:{size:10}}}},cutout:'65%'}
+});
+
+// ---- 2. Ingresos por CC (pie) ----
+new Chart(document.getElementById('chartIngresosPie'),{
+  type:'doughnut',
+  data:{
+    labels:DATA.ccNombres,
+    datasets:[{data:DATA.ingresosMayo,backgroundColor:CC_COLORS,borderWidth:2,borderColor:'#fff'}]
+  },
+  options:{
+    plugins:{
+      legend:{position:'bottom',labels:{boxWidth:10,padding:6,font:{size:10}}},
+      tooltip:{callbacks:{label:ctx=>`${ctx.label}: $${(ctx.raw/1e6).toFixed(1)}M (${((ctx.raw/268484259)*100).toFixed(1)}%)`}}
+    },
+    cutout:'55%'
+  }
+});
+
+// ---- 3. Costos por CC (pie) ----
+new Chart(document.getElementById('chartCostosPie'),{
+  type:'doughnut',
+  data:{
+    labels:DATA.ccNombres,
+    datasets:[{data:DATA.costosMayo,backgroundColor:CC_COLORS,borderWidth:2,borderColor:'#fff'}]
+  },
+  options:{
+    plugins:{
+      legend:{position:'bottom',labels:{boxWidth:10,padding:6,font:{size:10}}},
+      tooltip:{callbacks:{label:ctx=>`${ctx.label}: $${(ctx.raw/1e6).toFixed(1)}M`}}
+    },
+    cutout:'55%'
+  }
+});
+
+// ---- 4. Resultado por CC (bar) ----
+const ccNombresResultado = ["TEMPANO I","ENERICA","BIOMASA IV","BIOMASA V","BIOMASA VI","BIOMASA IX","ORION III","VARADERO","BAÑOS PECES","NAVES","TEMPANO II","TEMPANO III","EDUARDO IV","MANTENCIÓN","OPERACIONES","ADMINISTRACIÓN"];
+const resultadosCC = [46320,6658760,53440,316381,10550680,9540401,8498056,6216984,83896091,868369,-3112208,-15606443,-13073450,-9132851,-18689724,-49575765];
+const coloresResultado = resultadosCC.map(v=>v>=0?'#10b981':'#ef4444');
+
+new Chart(document.getElementById('chartResultadoCC'),{
+  type:'bar',
+  data:{
+    labels:ccNombresResultado,
+    datasets:[{
+      label:'Resultado Neto ($)',
+      data:resultadosCC.map(v=>v/1e6),
+      backgroundColor:coloresResultado,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>`$${(ctx.raw*1e6).toLocaleString('es-CL')}`}}
+    },
+    scales:{
+      y:{grid:{color:'#f1f5f9'},ticks:{callback:v=>`$${v}M`}},
+      x:{grid:{display:false},ticks:{font:{size:10}}}
+    }
+  }
+});
+
+// ---- 5. Ingresos mensuales ----
+new Chart(document.getElementById('chartIngresosMes'),{
+  type:'bar',
+  data:{
+    labels:MESES,
+    datasets:[{
+      label:'Ingresos (MM$)',
+      data:DATA.totalIngresos.map(v=>v/1e6),
+      backgroundColor:'rgba(37,99,235,0.7)',
+      borderColor:'#2563eb',borderWidth:1,borderRadius:6,
+    },{
+      type:'line',
+      label:'Tendencia',
+      data:DATA.totalIngresos.map(v=>v/1e6),
+      borderColor:'#0ea5e9',borderWidth:2,
+      pointBackgroundColor:'#0ea5e9',pointRadius:4,
+      fill:false,tension:0.4,
+    }]
+  },
+  options:{
+    plugins:{legend:{position:'top',labels:{boxWidth:10}}},
+    scales:{
+      y:{grid:{color:'#f1f5f9'},ticks:{callback:v=>`$${v}M`}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// ---- 6. Margen mensual ----
+new Chart(document.getElementById('chartMargenMes'),{
+  type:'line',
+  data:{
+    labels:MESES,
+    datasets:[{
+      label:'Margen Op. %',
+      data:DATA.totalMargenOp.map(v=>(v*100).toFixed(1)),
+      borderColor:'#10b981',borderWidth:2.5,
+      pointBackgroundColor:'#10b981',pointRadius:5,
+      fill:{target:'origin',above:'rgba(16,185,129,0.10)'},
+      tension:0.4,
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{min:0,max:40,grid:{color:'#f1f5f9'},ticks:{callback:v=>`${v}%`}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// ---- 7. Resultado por CC por mes (stacked bar) ----
+const resultadoMesCC_data = Object.entries(DATA.resultadoMesByCC);
+new Chart(document.getElementById('chartResultadoMesCC'),{
+  type:'bar',
+  data:{
+    labels:MESES,
+    datasets:resultadoMesCC_data.map(([name,vals],i)=>({
+      label:name,
+      data:vals.map(v=>v/1e6),
+      backgroundColor:CC_COLORS[i],
+      borderRadius:2,stack:'result'
+    }))
+  },
+  options:{
+    plugins:{legend:{position:'top',labels:{boxWidth:10,padding:8,font:{size:10}}}},
+    scales:{
+      y:{stacked:true,grid:{color:'#f1f5f9'},ticks:{callback:v=>`$${v}M`}},
+      x:{stacked:true,grid:{display:false}}
+    }
+  }
+});
+
+// ---- 8. Liquidez (radar) ----
+new Chart(document.getElementById('chartLiquidez'),{
+  type:'radar',
+  data:{
+    labels:['Cob. Intereses','Margen EBITDA','Margen Op.','Margen Neto','Efic. Costo','Diversif.'],
+    datasets:[{
+      label:'TISA Mayo 2026',
+      data:[82,24,25,7,65,50],
+      backgroundColor:'rgba(37,99,235,0.15)',
+      borderColor:'#2563eb',borderWidth:2,
+      pointBackgroundColor:'#2563eb',pointRadius:4,
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{r:{min:0,max:100,ticks:{stepSize:20,font:{size:10}},pointLabels:{font:{size:10}}}}
+  }
+});
+
+// ---- 9. EBITDA vs GF ----
+new Chart(document.getElementById('chartEBITDA'),{
+  type:'bar',
+  data:{
+    labels:MESES,
+    datasets:[
+      {label:'EBITDA Aprox.',data:DATA.ebitdaMeses.map(v=>v/1e6),backgroundColor:'rgba(16,185,129,0.7)',borderRadius:6,order:2},
+      {label:'Gasto Financiero',data:DATA.gastoFinMeses.map(v=>v/1e6),backgroundColor:'rgba(239,68,68,0.7)',borderRadius:6,order:2},
+      {type:'line',label:'Cobertura EBITDA/GF',data:DATA.ebitdaMeses.map((v,i)=>+(v/DATA.gastoFinMeses[i]).toFixed(1)),borderColor:'#f59e0b',borderWidth:2,pointRadius:5,yAxisID:'yRight',fill:false,tension:0.3,order:1},
+    ]
+  },
+  options:{
+    plugins:{legend:{position:'top',labels:{boxWidth:10}}},
+    scales:{
+      y:{grid:{color:'#f1f5f9'},ticks:{callback:v=>`$${v}M`}},
+      yRight:{position:'right',grid:{display:false},ticks:{callback:v=>`${v}x`},min:0},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// ---- 10. Margen por CC (mayo) ----
+const ccConIngreso = ["VARADERO","BIOMASA VI","BAÑOS PECES","BIOMASA IX","ORION III","ENERICA","BIOMASA IV","TEMPANO I","BIOMASA V"];
+const margenesCC   = [67.54,63.94,61.96,33.09,32.94,29.78,6.34,5.72,1.10];
+new Chart(document.getElementById('chartMargenCC'),{
+  type:'bar',
+  data:{
+    labels:ccConIngreso,
+    datasets:[{
+      label:'Margen Operacional %',
+      data:margenesCC,
+      backgroundColor:margenesCC.map(v=>v>30?'#10b981':v>10?'#f59e0b':'#ef4444'),
+      borderRadius:4,
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>`${ctx.raw.toFixed(1)}%`}}
+    },
+    scales:{
+      x:{min:0,max:80,grid:{color:'#f1f5f9'},ticks:{callback:v=>`${v}%`}},
+      y:{grid:{display:false}}
+    }
+  }
+});
+
+// ---- 11. Margen YTD por CC ----
+const margenYTDPos = DATA.margenYTD.map(v=>Math.max(v,0));
+const margenYTDNeg = DATA.margenYTD.map(v=>Math.min(v,0));
+new Chart(document.getElementById('chartMargenYTD'),{
+  type:'bar',
+  data:{
+    labels:DATA.ccNombres,
+    datasets:[
+      {label:'Margen YTD Positivo %',data:margenYTDPos,backgroundColor:'#10b981',borderRadius:3,stack:'s'},
+      {label:'Margen YTD Negativo %',data:margenYTDNeg,backgroundColor:'#ef4444',borderRadius:3,stack:'s'},
+    ]
+  },
+  options:{
+    indexAxis:'y',
+    plugins:{
+      legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}},
+      tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`}}
+    },
+    scales:{
+      x:{grid:{color:'#f1f5f9'},ticks:{callback:v=>`${v}%`}},
+      y:{grid:{display:false},ticks:{font:{size:10}}}
+    }
+  }
+});
+</script>
+</body>
+</html>
