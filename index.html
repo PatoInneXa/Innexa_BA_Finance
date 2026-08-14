@@ -184,8 +184,8 @@
     <div class="cover-meta">
       <div class="cover-meta-item"><div class="label">Empresa</div><div class="value">TISA (Servicios Acuícolas)</div></div>
       <div class="cover-meta-item"><div class="label">Período</div><div class="value">Enero – Junio 2026</div></div>
-      <div class="cover-meta-item"><div class="label">Mes Referencia</div><div class="value">Mayo 2026</div></div>
-      <div class="cover-meta-item"><div class="label">Generado</div><div class="value" id="gen-date"></div></div>
+      <div class="cover-meta-item"><div class="label">Mes Referencia</div><div class="value">Junio 2026</div></div>
+      <div class="cover-meta-item"><div class="label">Generado</div><div class="value" id="gen-date">14/08/2026 15:05</div></div>
     </div>
   </div>
   <div class="cover-footer">
@@ -282,38 +282,38 @@
   <div class="kpi-grid">
     <div class="kpi-card teal">
       <div class="kpi-label">Ingresos del Mes</div>
-      <div class="kpi-value">$268,5M</div>
+      <div class="kpi-value">$293.5M</div>
       <div class="kpi-sub">Mayo 2026 &nbsp;<span class="kpi-badge up">▲ vs. ENE</span></div>
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">Margen Operacional</div>
-      <div class="kpi-value">25,0%</div>
+      <div class="kpi-value">18,3%</div>
       <div class="kpi-sub">$67,1M resultado op. mes</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Resultado Neto Mes</div>
-      <div class="kpi-value">$17,5M</div>
+      <div class="kpi-value">-$2.3M</div>
       <div class="kpi-sub">Margen neto 6,5%</div>
     </div>
     <div class="kpi-card red">
       <div class="kpi-label">Resultado Acum. YTD</div>
-      <div class="kpi-value negative">($60,3M)</div>
+      <div class="kpi-value negative">($71.9M)</div>
       <div class="kpi-sub">Margen YTD -5,8%</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">EBITDA Aprox.</div>
-      <div class="kpi-value">$63,6M</div>
+      <div class="kpi-value">$46.1M</div>
       <div class="kpi-sub">Margen EBITDA 23,7%</div>
     </div>
     <div class="kpi-card amber">
       <div class="kpi-label">Gasto Financiero</div>
-      <div class="kpi-value">$11,6M</div>
+      <div class="kpi-value">$13.9M</div>
       <div class="kpi-sub">Cob. intereses: 5,5x</div>
     </div>
     <div class="kpi-card teal">
       <div class="kpi-label">Ingresos Acum. YTD</div>
-      <div class="kpi-value">$1.047M</div>
-      <div class="kpi-sub">5 meses acumulados</div>
+      <div class="kpi-value">$1.3B</div>
+      <div class="kpi-sub">6 meses acumulados</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Remuneraciones / Costo</div>
@@ -753,29 +753,68 @@ document.getElementById('footer-date').textContent = 'Generado el ' + dateStr;
 // ======= DATA (auto-actualizable por script Python) =======
 // <!-- DATA_START -->
 const DATA = {
-  mes: "Mayo 2026",
-  meses: ["ENE","FEB","MAR","ABR","MAY","JUN"],
-  totalIngresos: [158388021,167535623,187328592,264768140,268484259,293469184],
-  totalResultadoOp: [24429943,15740981,23803838,83636757,67070301,53611324],
-  totalMargenOp: [0.154,0.094,0.127,0.316,0.250,0.183],
-  ccNombres: ["TEMPANO I","TEMPANO III","EDUARDO IV","ENERICA","BIOMASA V","BIOMASA VI","BIOMASA IX","ORION III","BAÑOS PECES","VARADERO"],
-  ingresosMayo: [810021,0,0,22360000,28671000,16500000,28836000,25800000,135400000,9264000],
-  costosMayo:   [763701,15606443,13073450,15701240,28354619,5949320,19295599,17301944,51503909,3007521],
-  resultadoMayo:[46320,-15606443,-13073450,6658760,316381,10550680,9540401,8498056,83896091,6216984],
-  margenMayo:   [5.72,0,0,29.78,1.10,63.94,33.09,32.94,61.96,67.54],
-  margenYTD:    [6.6,5.6,-172.9,40.1,16.3,66.7,37.7,24.2,62.9,-10.9],
-  participIngresos:[0.30,0,0,8.33,10.68,6.15,10.74,9.61,50.43,3.45],
-  participCostos: [0.30,6.22,5.21,6.25,11.30,2.37,7.69,6.89,20.52,1.21],
+  // ── Metadatos ──────────────────────────────────────────────
+  mes: "Junio 2026",
+  mesReferencia: "Junio 2026",
+  periodo: "Enero – Junio 2026",
+  nMeses: 6,
+  genDate: "14/08/2026 15:05",
+
+  // ── Evolución mensual (§6 Análisis Horizontal) ──────────────
+  meses: ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN"],
+  totalIngresos:    [158388021, 167535623, 187328592, 264768140, 268484259, 293469184],
+  totalResultadoOp: [24429943, 15740981, 23803838, 83636757, 57806301, 53611324],
+  totalMargenOp:    [0.1542, 0.094, 0.1271, 0.3159, 0.2153, 0.1827],
+
+  // ── Resultado mensual por CC (§6 stacked bar) ───────────────
   resultadoMesByCC: {
-    "ENERICA":    [11483746,9662607,11960336,11007544,6658760,-6621298],
-    "BIOMASA V":  [10526003,1000739,5610573,6122327,316381,18001932],
-    "BIOMASA VI": [10683565,11748105,11882546,10137328,10550680,-11004842],
-    "BIOMASA IX": [12895250,12207895,9476754,9855369,9540401,7773591],
-    "ORION III":  [11617749,-6798157,-19463,11793337,8498056,669759],
-    "BAÑOS PECES":[0,-1487498,30426036,92349776,83896091,107582233],
+    "TEMPANO I": [58670, 77633, 36464, 48316, 46320, -770844],
+    "TEMPANO III": [14545236, 22490037, -5829159, -11333035, -15606443, -13382554],
+    "EDUARDO IV": [-16091284, 2853711, -7266130, -15626091, -13073450, -14863107],
+    "ENERICA": [11483746, 9662607, 11960336, 11007544, 6658760, -6621298],
+    "BIOMASA IV": [-778890, 40250, 39394, 49652, 53440, 46252],
+    "BIOMASA V": [10526003, 1000739, 5610573, 6122327, 316381, 18001932],
+    "BIOMASA VI": [10683565, 11748105, 11882546, 10137328, 10550680, -11004842],
+    "BIOMASA IX": [12895250, 12207895, 9476754, 9855369, 9540401, 7773591],
+    "ORION III": [11617749, -6798157, -19463, 11793337, 8498056, 669759],
+    "NAVES": [0, -1400000, 0, 0, 868369, -1500000],
+    "SERVICIOS BAÑOS PECES": [0, -1487498, 30426036, 92349776, 83896091, 107582233],
+    "VARADERO": [-1489244, -2459424, -1401238, -1658429, 6256479, -3423860],
   },
-  ebitdaMeses:   [31329943,22640981,30703838,90536757,63591155,60511324],
-  gastoFinMeses: [11569016,11569016,11569016,11569016,11569016,11569016],
+
+  // ── Por CC en mes activo (§5 Análisis Vertical / §4 doughnut) ──
+  ccNombres:     ["TEMPANO I", "TEMPANO II", "TEMPANO III", "EDUARDO IV", "ENERICA", "BIOMASA IV", "BIOMASA V", "BIOMASA VI", "BIOMASA IX", "ORION III", "OPERACIONES", "NAVES", "MANTENCION", "ADMINISTRACION", "SERVICIOS BAÑOS PECES", "VARADERO", "CASCADA"],
+  ccTipoCounts:  [9, 7, 1],
+  ingresosMayo:  [0, 0, 0, 0, 8600000, 843238, 47850000, 8659946, 28836000, 19780000, 0, -1500000, 0, 0, 180400000, 0, 0],
+  costosMayo:    [770844, 898027, 13382554, 14863107, 15221298, 796986, 29848068, 19664788, 21062409, 19110241, 18084878, 0, 9913033, 55908666, 72817767, 3463355, 0],
+  resultadoMayo: [-770844, -898027, -13382554, -14863107, -6621298, 46252, 18001932, -11004842, 7773591, 669759, -18084878, -1500000, -9913033, -55908666, 107582233, -3463355, 0],
+  margenMayo:    [0.0, 0.0, 0.0, 0.0, -76.99, 5.49, 37.62, -127.08, 26.96, 3.39, 0.0, 100.0, 0.0, 0.0, 59.64, 0.0, 0.0],
+
+  // ── Participación % (§5 pie charts) ─────────────────────────
+  participIngresos: [0.0, 0.0, 0.0, 0.0, 2.93, 0.29, 16.3, 2.95, 9.83, 6.74, 0.0, -0.51, 0.0, 0.0, 61.47, 0.0, 0.0],
+  participCostos:   [0.26, 0.3, 4.52, 5.02, 5.15, 0.27, 10.09, 6.65, 7.12, 6.46, 6.11, 0.0, 3.35, 18.9, 24.62, 1.17, 0.0],
+
+  // ── Margen YTD por CC (§7 Rentabilidad) ─────────────────────
+  margenYTD:      [-12.43, 0.0, -12.04, -225.11, 32.6, -13.04, 21.59, 48.26, 35.93, 20.86, 0.0, 135.44, 0.0, 0.0, 61.73, -48.32, 0.0],
+  ytdIngresosCC:  [4050105, 0, 75708200, 28460000, 134160000, 4216190, 192620103, 91159946, 171668005, 123521210, 0, -1500000, 0, 0, 506646060, 9264000, 0],
+  ytdResultadoCC: [-503441, -16393372, -9115918, -64066351, 43739540, -549902, 41577955, 43997382, 61674612, 25761281, -112546811, -2031631, -61517521, -328699810, 312766638, -4476724, -1515780],
+
+  // ── Flujo de Caja (§9) — EBITDA/GF reales por mes ────────────
+  ebitdaMeses:   [60067468, 51095623, 58543880, 118519282, 92373399, 88178420],
+  gastoFinMeses: [19103996, 26204421, 16240306, 12534249, 11569016, 13857148],
+
+  // ── KPIs totales (§3 Resumen Ejecutivo) ─────────────────────
+  ingresosTotalMes:  293469184,
+  resultadoTotalMes: -2336837,
+  margenOpPct:       18.27,
+  margenNetoPct:     -0.8,
+  ebitda:            46087407,
+  gtoFinanciero:     13857148,
+  cobertura:         3.33,
+  remuneraciones:    130490289,
+  ytdIngresos:       1339973819,
+  ytdResultado:      -71899853,
+  ytdMargenPct:      -5.37,
 };
 // <!-- DATA_END -->
 
@@ -790,6 +829,7 @@ const COLORS = {
   lime:'#84cc16', cyan:'#06b6d4',
 };
 const CC_COLORS = ['#2563eb','#10b981','#f59e0b','#0ea5e9','#ef4444','#8b5cf6','#f97316','#ec4899','#84cc16','#06b6d4'];
+const ccColor = i => CC_COLORS[i % CC_COLORS.length]; // cicla la paleta si hay más CC que colores
 const toM = v => (v/1e6).toFixed(1);
 
 // ---- 1. Tipo CC ----
@@ -797,33 +837,35 @@ new Chart(document.getElementById('chartCCType'),{
   type:'doughnut',
   data:{
     labels:['Operacional (con ingresos)','Soporte/Costo','Inactivo'],
-    datasets:[{data:[9,7,1],backgroundColor:['#10b981','#ef4444','#94a3b8'],borderWidth:2,borderColor:'#fff'}]
+    datasets:[{data:DATA.ccTipoCounts,backgroundColor:['#10b981','#ef4444','#94a3b8'],borderWidth:2,borderColor:'#fff'}]
   },
   options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:8,font:{size:10}}}},cutout:'65%'}
 });
 
-// ---- 2. Ingresos por CC (pie) ----
+// ---- 2. Ingresos por CC (pie) — sólo CC con ingresos > 0 en el mes activo ----
+const idxConIngresoMes = DATA.ccNombres.map((_,i)=>i).filter(i=>DATA.ingresosMayo[i]>0);
 new Chart(document.getElementById('chartIngresosPie'),{
   type:'doughnut',
   data:{
-    labels:DATA.ccNombres,
-    datasets:[{data:DATA.ingresosMayo,backgroundColor:CC_COLORS,borderWidth:2,borderColor:'#fff'}]
+    labels:idxConIngresoMes.map(i=>DATA.ccNombres[i]),
+    datasets:[{data:idxConIngresoMes.map(i=>DATA.ingresosMayo[i]),backgroundColor:idxConIngresoMes.map(ccColor),borderWidth:2,borderColor:'#fff'}]
   },
   options:{
     plugins:{
       legend:{position:'bottom',labels:{boxWidth:10,padding:6,font:{size:10}}},
-      tooltip:{callbacks:{label:ctx=>`${ctx.label}: $${(ctx.raw/1e6).toFixed(1)}M (${((ctx.raw/268484259)*100).toFixed(1)}%)`}}
+      tooltip:{callbacks:{label:ctx=>`${ctx.label}: $${(ctx.raw/1e6).toFixed(1)}M (${((ctx.raw/DATA.ingresosTotalMes)*100).toFixed(1)}%)`}}
     },
     cutout:'55%'
   }
 });
 
-// ---- 3. Costos por CC (pie) ----
+// ---- 3. Costos por CC (pie) — sólo CC con costos > 0 en el mes activo ----
+const idxConCostoMes = DATA.ccNombres.map((_,i)=>i).filter(i=>DATA.costosMayo[i]>0);
 new Chart(document.getElementById('chartCostosPie'),{
   type:'doughnut',
   data:{
-    labels:DATA.ccNombres,
-    datasets:[{data:DATA.costosMayo,backgroundColor:CC_COLORS,borderWidth:2,borderColor:'#fff'}]
+    labels:idxConCostoMes.map(i=>DATA.ccNombres[i]),
+    datasets:[{data:idxConCostoMes.map(i=>DATA.costosMayo[i]),backgroundColor:idxConCostoMes.map(ccColor),borderWidth:2,borderColor:'#fff'}]
   },
   options:{
     plugins:{
@@ -835,17 +877,15 @@ new Chart(document.getElementById('chartCostosPie'),{
 });
 
 // ---- 4. Resultado por CC (bar) ----
-const ccNombresResultado = ["TEMPANO I","ENERICA","BIOMASA IV","BIOMASA V","BIOMASA VI","BIOMASA IX","ORION III","VARADERO","BAÑOS PECES","NAVES","TEMPANO II","TEMPANO III","EDUARDO IV","MANTENCIÓN","OPERACIONES","ADMINISTRACIÓN"];
-const resultadosCC = [46320,6658760,53440,316381,10550680,9540401,8498056,6216984,83896091,868369,-3112208,-15606443,-13073450,-9132851,-18689724,-49575765];
-const coloresResultado = resultadosCC.map(v=>v>=0?'#10b981':'#ef4444');
+const coloresResultado = DATA.resultadoMayo.map(v=>v>=0?'#10b981':'#ef4444');
 
 new Chart(document.getElementById('chartResultadoCC'),{
   type:'bar',
   data:{
-    labels:ccNombresResultado,
+    labels:DATA.ccNombres,
     datasets:[{
       label:'Resultado Neto ($)',
-      data:resultadosCC.map(v=>v/1e6),
+      data:DATA.resultadoMayo.map(v=>v/1e6),
       backgroundColor:coloresResultado,
       borderRadius:4
     }]
@@ -923,7 +963,7 @@ new Chart(document.getElementById('chartResultadoMesCC'),{
     datasets:resultadoMesCC_data.map(([name,vals],i)=>({
       label:name,
       data:vals.map(v=>v/1e6),
-      backgroundColor:CC_COLORS[i],
+      backgroundColor:ccColor(i),
       borderRadius:2,stack:'result'
     }))
   },
@@ -936,14 +976,26 @@ new Chart(document.getElementById('chartResultadoMesCC'),{
   }
 });
 
-// ---- 8. Liquidez (radar) ----
+// ---- 8. Liquidez (radar) — scores 0-100 calculados desde los KPI reales ----
+const clamp = (v,a=0,b=100) => Math.max(a,Math.min(b,v||0));
+const margenEbitdaPct  = DATA.ingresosTotalMes ? DATA.ebitda/DATA.ingresosTotalMes*100 : 0;
+const remunPctIngresos = DATA.ingresosTotalMes ? DATA.remuneraciones/DATA.ingresosTotalMes*100 : 0;
+const maxParticipIng   = DATA.participIngresos.length ? Math.max(...DATA.participIngresos) : 0;
+const radarData = [
+  clamp(DATA.cobertura*10),          // Cob. Intereses (10x cobertura = score 100)
+  clamp(margenEbitdaPct),            // Margen EBITDA
+  clamp(DATA.margenOpPct),           // Margen Op.
+  clamp(DATA.margenNetoPct),         // Margen Neto
+  clamp(100-remunPctIngresos),       // Efic. Costo (menor remun./ingresos = más eficiente)
+  clamp(100-maxParticipIng),         // Diversif. (menor concentración en 1 CC = mejor)
+];
 new Chart(document.getElementById('chartLiquidez'),{
   type:'radar',
   data:{
     labels:['Cob. Intereses','Margen EBITDA','Margen Op.','Margen Neto','Efic. Costo','Diversif.'],
     datasets:[{
-      label:'TISA Mayo 2026',
-      data:[82,24,25,7,65,50],
+      label:'TISA ' + DATA.mes,
+      data:radarData,
       backgroundColor:'rgba(37,99,235,0.15)',
       borderColor:'#2563eb',borderWidth:2,
       pointBackgroundColor:'#2563eb',pointRadius:4,
@@ -976,9 +1028,13 @@ new Chart(document.getElementById('chartEBITDA'),{
   }
 });
 
-// ---- 10. Margen por CC (mayo) ----
-const ccConIngreso = ["VARADERO","BIOMASA VI","BAÑOS PECES","BIOMASA IX","ORION III","ENERICA","BIOMASA IV","TEMPANO I","BIOMASA V"];
-const margenesCC   = [67.54,63.94,61.96,33.09,32.94,29.78,6.34,5.72,1.10];
+// ---- 10. Margen por CC — sólo CC con ingresos > 0 en el mes activo, orden desc. ----
+const idxMargenCC = DATA.ccNombres
+  .map((_,i)=>i)
+  .filter(i=>DATA.ingresosMayo[i]>0)
+  .sort((a,b)=>DATA.margenMayo[b]-DATA.margenMayo[a]);
+const ccConIngreso = idxMargenCC.map(i=>DATA.ccNombres[i]);
+const margenesCC   = idxMargenCC.map(i=>DATA.margenMayo[i]);
 new Chart(document.getElementById('chartMargenCC'),{
   type:'bar',
   data:{
@@ -997,19 +1053,22 @@ new Chart(document.getElementById('chartMargenCC'),{
       tooltip:{callbacks:{label:ctx=>`${ctx.raw.toFixed(1)}%`}}
     },
     scales:{
-      x:{min:0,max:80,grid:{color:'#f1f5f9'},ticks:{callback:v=>`${v}%`}},
+      x:{grid:{color:'#f1f5f9'},ticks:{callback:v=>`${v}%`}},
       y:{grid:{display:false}}
     }
   }
 });
 
-// ---- 11. Margen YTD por CC ----
-const margenYTDPos = DATA.margenYTD.map(v=>Math.max(v,0));
-const margenYTDNeg = DATA.margenYTD.map(v=>Math.min(v,0));
+// ---- 11. Margen YTD por CC — sólo CC con ingresos YTD > 0 ----
+const idxMargenYTD = DATA.ccNombres.map((_,i)=>i).filter(i=>DATA.ytdIngresosCC[i]>0);
+const nombresYTD    = idxMargenYTD.map(i=>DATA.ccNombres[i]);
+const margenYTDVals = idxMargenYTD.map(i=>DATA.margenYTD[i]);
+const margenYTDPos = margenYTDVals.map(v=>Math.max(v,0));
+const margenYTDNeg = margenYTDVals.map(v=>Math.min(v,0));
 new Chart(document.getElementById('chartMargenYTD'),{
   type:'bar',
   data:{
-    labels:DATA.ccNombres,
+    labels:nombresYTD,
     datasets:[
       {label:'Margen YTD Positivo %',data:margenYTDPos,backgroundColor:'#10b981',borderRadius:3,stack:'s'},
       {label:'Margen YTD Negativo %',data:margenYTDNeg,backgroundColor:'#ef4444',borderRadius:3,stack:'s'},
