@@ -8,25 +8,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
-:root{--navy:#0d1b2a;--blue:#1e3a5f;--accent:#2563eb;--teal:#0d9488;--green:#16a34a;--red:#dc2626;--amber:#d97706;--bg:#f1f5f9;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--svc:#2563eb;--rep:#0d9488;--int:#d97706;}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px}a{text-decoration:none;color:inherit}.topbar{background:var(--navy);color:#fff;padding:14px 28px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}.topbar h1{font-size:16px;font-weight:700;flex:1}.topbar .period{font-size:12px;color:#94a3b8}.topbar .updated{font-size:11px;color:#64748b;margin-left:auto}nav{display:flex;gap:4px}nav a{color:#cbd5e1;font-size:12px;padding:4px 10px;border-radius:4px;transition:.2s}nav a:hover,nav a.active{background:rgba(255,255,255,.1);color:#fff}.container{max-width:1400px;margin:0 auto;padding:24px 20px}.section{margin-bottom:40px}.section-title{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent)}.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}.kpi-card{background:var(--card);border-radius:10px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid var(--accent)}.kpi-card.green{border-left-color:var(--green)}.kpi-card.red{border-left-color:var(--red)}.kpi-card.teal{border-left-color:var(--teal)}.kpi-card.amber{border-left-color:var(--amber)}.kpi-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}.kpi-value{font-size:22px;font-weight:800;color:var(--text)}.kpi-value.negative{color:var(--red)}.kpi-sub{font-size:11px;color:var(--muted);margin-top:4px}.chart-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:20px}.chart-box{background:var(--card);border-radius:10px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.07)}.chart-box h3{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:14px}.tipo-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid transparent;transition:.2s}.pill.all{background:#f1f5f9;color:var(--text);border-color:#e2e8f0}.pill.svc{background:#eff6ff;color:var(--svc);border-color:#bfdbfe}.pill.rep{background:#f0fdfa;color:var(--teal);border-color:#99f6e4}.pill.int{background:#fffbeb;color:var(--amber);border-color:#fde68a}.pill.active{box-shadow:0 0 0 2px currentColor}.pill .dot{width:8px;height:8px;border-radius:50%;background:currentColor}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}.filters select,.filters input{padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none;background:var(--card)}.filters label{font-size:12px;color:var(--muted);font-weight:500}.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}table{width:100%;border-collapse:collapse;font-size:12px}th{background:var(--blue);color:#fff;padding:9px 10px;text-align:left;font-weight:600;white-space:nowrap;cursor:pointer;user-select:none}th:hover{background:var(--accent)}td{padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}tr:last-child td{border-bottom:none}tr:hover td{background:#f8fafc}.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}.badge.svc{background:#eff6ff;color:var(--svc)}.badge.rep{background:#f0fdfa;color:var(--teal)}.badge.int{background:#fffbeb;color:var(--amber)}.badge.otro{background:#f1f5f9;color:var(--muted)}.badge.abierta{background:#f0fdf4;color:var(--green)}.badge.cerrada{background:#fef2f2;color:var(--red)}.pct-bar{display:inline-block;height:6px;border-radius:3px;background:var(--accent);vertical-align:middle;margin-right:5px}.tbl-summary{font-size:11px;color:var(--muted);margin-top:6px;padding:4px 0}.chart-tbl-wrap{max-height:200px;overflow-y:auto;overflow-x:auto;border-top:1px solid var(--border);margin-top:10px}.chart-tbl-wrap table{width:100%;font-size:11px;border-collapse:collapse}.chart-tbl-wrap th{background:var(--blue);color:#fff;padding:5px 8px;position:sticky;top:0;font-size:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;text-align:left}.chart-tbl-wrap td{padding:4px 8px;border-bottom:1px solid var(--border);white-space:nowrap}.chart-tbl-wrap tr:last-child td{border-bottom:none}.chart-tbl-wrap tr:hover td{background:#f8fafc}.tbl-toggle{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:3px 10px;border:1px solid var(--border);border-radius:4px;background:none;cursor:pointer;font-size:11px;color:var(--accent);font-family:inherit}.tbl-toggle:hover{background:var(--bg)}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b2a;--blue:#1e3a5f;--accent:#2563eb;--teal:#0d9488;
+  --green:#16a34a;--red:#dc2626;--amber:#d97706;--bg:#f1f5f9;--card:#fff;
+  --text:#1e293b;--muted:#64748b;--border:#e2e8f0;--radius:10px;
+  --svc:#2563eb;--rep:#0d9488;--int:#d97706;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+/* ── Topbar ── */
+.topbar{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+  color:#fff;padding:18px 28px;display:flex;align-items:center;
+  justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.topbar-title{font-size:1.15rem;font-weight:700;letter-spacing:.3px}
+.topbar-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.topbar-badge{
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:20px;padding:5px 14px;font-size:.75rem;white-space:nowrap;
+}
+/* ── Nav tabs ── */
+.nav-tabs{
+  background:var(--blue);display:flex;gap:2px;padding:0 24px;overflow-x:auto;
+}
+.nav-tabs button{
+  background:none;border:none;color:rgba(255,255,255,.65);padding:12px 18px;
+  font-size:.82rem;cursor:pointer;border-bottom:3px solid transparent;
+  white-space:nowrap;font-family:inherit;transition:color .2s,border-color .2s;
+}
+.nav-tabs button:hover{color:#fff}
+.nav-tabs button.active{color:#fff;border-bottom-color:var(--accent);font-weight:600}
+/* ── Layout ── */
+.container{max-width:1400px;margin:0 auto;padding:24px 20px}
+.section{display:none}
+.section.visible{display:block}
+.section-title{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:16px;
+  padding-bottom:8px;border-bottom:2px solid var(--accent)}
+/* ── KPI ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:20px}
+.kpi-card{background:var(--card);border-radius:var(--radius);padding:16px 18px;
+  box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid var(--accent)}
+.kpi-card.green{border-left-color:var(--green)}
+.kpi-card.red{border-left-color:var(--red)}
+.kpi-card.teal{border-left-color:var(--teal)}
+.kpi-card.amber{border-left-color:var(--amber)}
+.kpi-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-value{font-size:22px;font-weight:800;color:var(--text)}
+.kpi-value.negative{color:var(--red)}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:4px}
+/* ── Cards / Charts ── */
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:20px}
+.chart-box{background:var(--card);border-radius:var(--radius);padding:20px;
+  box-shadow:0 1px 4px rgba(0,0,0,.07);border:1px solid var(--border);margin-bottom:20px}
+.chart-box h3{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:14px;
+  padding-bottom:8px;border-bottom:1px solid var(--border)}
+/* ── Pills / Filters ── */
+.tipo-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;
+  font-size:12px;font-weight:600;cursor:pointer;border:2px solid transparent;transition:.2s}
+.pill.all{background:#f1f5f9;color:var(--text);border-color:#e2e8f0}
+.pill.svc{background:#eff6ff;color:var(--svc);border-color:#bfdbfe}
+.pill.rep{background:#f0fdfa;color:var(--teal);border-color:#99f6e4}
+.pill.int{background:#fffbeb;color:var(--amber);border-color:#fde68a}
+.pill.active{box-shadow:0 0 0 2px currentColor}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.filters select,.filters input{padding:6px 10px;border:1px solid var(--border);
+  border-radius:6px;font-size:12px;outline:none;background:var(--card)}
+.filters label{font-size:12px;color:var(--muted);font-weight:500}
+/* ── Tables ── */
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:var(--blue);color:#fff;padding:9px 10px;text-align:left;
+  font-weight:600;white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{background:var(--accent)}
+td{padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f8fafc}
+/* ── Badges ── */
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.badge.svc{background:#eff6ff;color:var(--svc)}
+.badge.rep{background:#f0fdfa;color:var(--teal)}
+.badge.int{background:#fffbeb;color:var(--amber)}
+.badge.otro{background:#f1f5f9;color:var(--muted)}
+.badge.abierta{background:#f0fdf4;color:var(--green)}
+.badge.cerrada{background:#fef2f2;color:var(--red)}
+.pct-bar{display:inline-block;height:6px;border-radius:3px;background:var(--accent);
+  vertical-align:middle;margin-right:5px}
+.tbl-summary{font-size:11px;color:var(--muted);margin-top:6px;padding:4px 0}
+/* ── Chart data tables ── */
+.chart-tbl-wrap{max-height:200px;overflow-y:auto;overflow-x:auto;
+  border-top:1px solid var(--border);margin-top:10px}
+.chart-tbl-wrap table{width:100%;font-size:11px;border-collapse:collapse}
+.chart-tbl-wrap th{background:var(--blue);color:#fff;padding:5px 8px;
+  position:sticky;top:0;font-size:10px;text-transform:uppercase;letter-spacing:.3px;
+  white-space:nowrap;text-align:left}
+.chart-tbl-wrap td{padding:4px 8px;border-bottom:1px solid var(--border);white-space:nowrap}
+.chart-tbl-wrap tr:last-child td{border-bottom:none}
+.chart-tbl-wrap tr:hover td{background:#f8fafc}
+.tbl-toggle{display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+  padding:3px 10px;border:1px solid var(--border);border-radius:4px;
+  background:none;cursor:pointer;font-size:11px;color:var(--accent);font-family:inherit}
+.tbl-toggle:hover{background:var(--bg)}
+/* ── Sem highlight ── */
+.sem-actual td{background:#eff6ff !important;font-weight:600;color:var(--accent)}
+
 </style>
 </head>
 <body>
 <div class="topbar">
-  <h1>📊 INFORME GERENCIA · CONTROL DE COSTOS</h1>
-  <span class="period">Base: hoja Resumen · Periodo Ene–Ago 2026 · Cifras monetarias en pesos chilenos (CLP), salvo % · Datos proyectados</span>
-  <nav>
-    <a href="#resumen" class="active">Resumen</a>
-    <a href="#mensual">Mensual</a>
-    <a href="#tipos">Por Tipo</a>
-    <a href="#costos">Costos</a>
-    <a href="#clientes">Clientes</a>
-    <a href="#ots">OTs</a>
-  </nav>
-  <span class="updated">Actualizado: 21/08/2026 11:11</span>
+  <div>
+    <div class="topbar-title">📊 INFORME GERENCIA · CONTROL DE COSTOS</div>
+    <div class="topbar-sub">Base: hoja Resumen · Periodo Ene–Ago 2026 · Cifras monetarias en pesos chilenos (CLP), salvo % · Datos proyectados</div>
+  </div>
+  <div class="topbar-badge">📅 Actualizado: 21/08/2026 14:53</div>
+</div>
+<div class="nav-tabs">
+  <button class="active" onclick="showTab(0,this)">📊 Resumen</button>
+  <button onclick="showTab(1,this)">📅 Mensual</button>
+  <button onclick="showTab(2,this)">🏷 Por Tipo</button>
+  <button onclick="showTab(3,this)">💰 Costos</button>
+  <button onclick="showTab(4,this)">👥 Clientes</button>
+  <button onclick="showTab(5,this)">🔧 OTs</button>
 </div>
 <div class="container">
-<div id="resumen" class="section">
+<div class="section visible" id="sec0">
   <div class="section-title">§1 Resumen Ejecutivo</div>
   <div class="kpi-grid">
     <div class="kpi-card">
@@ -50,7 +158,7 @@
     </div>
   </div>
 </div>
-<div id="mensual" class="section">
+<div class="section" id="sec1">
   <div class="section-title">§2 Evolución Mensual Consolidada</div>
   <div class="chart-grid">
     <div class="chart-box" style="grid-column:1/-1">
@@ -64,7 +172,7 @@
     </div>
   </div>
 </div>
-<div id="tipos" class="section">
+<div class="section" id="sec2">
   <div class="section-title">§3 Análisis por Tipo de Trabajo</div>
   <div class="chart-grid">
     <div class="chart-box">
@@ -87,7 +195,7 @@
     </div>
   </div>
 </div>
-<div id="costos" class="section">
+<div class="section" id="sec3">
   <div class="section-title">§4 Desglose de Costos</div>
   <div class="chart-grid">
     <div class="chart-box">
@@ -110,7 +218,7 @@
     </div>
   </div>
 </div>
-<div id="clientes" class="section">
+<div class="section" id="sec4">
   <div class="section-title">§5 Resultado por Cliente</div>
   <div class="tbl-wrap">
     <table id="tblClientes">
@@ -127,7 +235,7 @@
     </table>
   </div>
 </div>
-<div id="ots" class="section">
+<div class="section" id="sec5">
   <div class="section-title">§6 Detalle de Órdenes de Trabajo</div>
   <div class="filters">
     <label>Tipo:</label>
@@ -434,15 +542,14 @@ function sortTbl(id,col){
   if(totalRow) tbl.tBodies[0].appendChild(totalRow);
 }
 
-// Scroll nav highlight
-window.addEventListener('scroll',()=>{
-  document.querySelectorAll('nav a').forEach(a=>{
-    const sec=document.querySelector(a.getAttribute('href'));
-    if(!sec) return;
-    const r=sec.getBoundingClientRect();
-    a.classList.toggle('active',r.top<=80&&r.bottom>80);
+// Tab navigation
+function showTab(idx,btn){
+  document.querySelectorAll('.section').forEach((s,i)=>{
+    s.classList.toggle('visible',i===idx);
   });
-});
+  document.querySelectorAll('.nav-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
 </script>
 </body>
 </html>
