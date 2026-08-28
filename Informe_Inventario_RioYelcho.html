@@ -45,17 +45,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .section-title{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:16px;
   padding-bottom:8px;border-bottom:2px solid var(--accent)}
 /* ── KPI ── */
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:20px}
-.kpi-card{background:var(--card);border-radius:var(--radius);padding:16px 18px;
-  box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid var(--accent)}
-.kpi-card.green{border-left-color:var(--green)}
-.kpi-card.red{border-left-color:var(--red)}
-.kpi-card.teal{border-left-color:var(--teal)}
-.kpi-card.amber{border-left-color:var(--amber)}
-.kpi-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.kpi-value{font-size:22px;font-weight:800;color:var(--text)}
-.kpi-value.negative{color:var(--red)}
-.kpi-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;margin-bottom:20px}
+.kpi-card{background:var(--card);border-radius:var(--radius);padding:24px 20px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center;border-top:4px solid var(--accent)}
+.kpi-label{font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.kpi-value{font-size:1.75rem;font-weight:800;line-height:1.1;color:var(--text);margin-bottom:8px}
+.kpi-sub{font-size:.78rem;color:var(--muted);margin-top:4px}
 /* ── Cards / Charts ── */
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:20px}
 .chart-box{background:var(--card);border-radius:var(--radius);padding:20px;
@@ -121,61 +116,60 @@ tr:hover td{background:#f8fafc}
     <div class="topbar-title">📦 CONTROL DE INVENTARIO — DASHBOARD EJECUTIVO</div>
     <div class="topbar-sub">Semana de análisis: 33   |   Semana comparativa: 32   |   Periodo de consumo: semanas 25 a 33   |   Generado: 18-08-2026</div>
   </div>
-  <div class="topbar-badge">📅 Actualizado: 27/08/2026 06:13</div>
+  <div class="topbar-badge">📅 Actualizado: 28/08/2026 07:18</div>
 </div>
 <div class="nav-tabs">
   <button class="active" onclick="showTab(0,this)">📊 Resumen</button>
   <button onclick="showTab(1,this)">🏭 Bodegas</button>
   <button onclick="showTab(2,this)">📂 Subfamilias</button>
   <button onclick="showTab(3,this)">📉 Consumo Semanal</button>
-  <button onclick="showTab(4,this)">📈 Evol. Bodega</button>
-  <button onclick="showTab(5,this)">📈 Evol. Subfamilia</button>
+  <button onclick="showTab(4,this)">📋 Evolución por OT</button>
+  <button onclick="showTab(5,this)">👥 Consumo por Cliente</button>
 </div>
 <div class="container">
 <div class="section visible" id="sec0">
   <div class="section-title">§1 Resumen Ejecutivo</div>
   <div style="font-size:.85rem;color:var(--muted);margin-bottom:12px;padding:6px 10px;background:#f8fafc;border-radius:6px;border-left:3px solid var(--accent)">📅 Período de Análisis: <strong>Semana de análisis: 33   |   Semana comparativa: 32   |   Periodo de consumo: semanas 25 a 33   |   Generado: 18-08-2026</strong></div>
   <div class="kpi-grid">
-    <div class="kpi-card ">
+    <div class="kpi-card" style="border-top-color:var(--accent)">
       <div class="kpi-label">VALORIZADO TOTAL (SEM. 33)</div>
-      <div class="kpi-value">$ 36.1 M</div>
+      <div class="kpi-value" style="color:var(--accent)">$ 36.08 M</div>
       <div class="kpi-sub">Sem. ant.: $37.052.853</div>
     </div>
-    <div class="kpi-card red">
+    <div class="kpi-card" style="border-top-color:var(--teal)">
       <div class="kpi-label">VARIACIÓN SEM. 32 → SEM. 33</div>
-      <div class="kpi-value negative">$ 975,465</div>
+      <div class="kpi-value" style="color:var(--teal)">−$ 975.465</div>
       <div class="kpi-sub">Δ -2,6%</div>
     </div>
-    <div class="kpi-card teal">
+    <div class="kpi-card" style="border-top-color:var(--green)">
       <div class="kpi-label">STOCK TOTAL UNID. (SEM. 33)</div>
-      <div class="kpi-value">13,342</div>
+      <div class="kpi-value" style="color:var(--green)">$ 13.342</div>
       <div class="kpi-sub">Δ 3.270 unid vs sem. ant.</div>
     </div>
-    <div class="kpi-card amber">
+    <div class="kpi-card" style="border-top-color:var(--amber)">
       <div class="kpi-label">CONSUMO SEMANA 33</div>
-      <div class="kpi-value">$ 148,768</div>
+      <div class="kpi-value" style="color:var(--amber)">$ 148.768</div>
       <div class="kpi-sub">Participación: 0,5% del acumulado</div>
     </div>
-    <div class="kpi-card green">
+    <div class="kpi-card" style="border-top-color:var(--blue)">
       <div class="kpi-label">CONSUMO ACUM. SEM. 25-33</div>
-      <div class="kpi-value">$ 27.5 M</div>
+      <div class="kpi-value" style="color:var(--blue)">$ 27.53 M</div>
       <div class="kpi-sub">Promedio semanal: $3.059.238</div>
     </div>
-    <div class="kpi-card ">
+    <div class="kpi-card" style="border-top-color:var(--red)">
       <div class="kpi-label">OT CON CONSUMO (SEM. 25-33)</div>
-      <div class="kpi-value">45</div>
+      <div class="kpi-value" style="color:var(--red)">45</div>
       <div class="kpi-sub">Subfamilias con salidas: 13</div>
     </div>
   </div>
 </div>
 <div class="section" id="sec1">
-  <div class="section-title">§2 Inventario Valorizado por Bodega · Sem. Comparativa vs Sem. Actual</div>
+  <div class="section-title">§ Inventario Valorizado por Bodega</div>
   <div class="chart-box">
-    <h3>Comparativa por Bodega (MM CLP)</h3>
-    <canvas id="cBodega" height="180"></canvas>
+    <h3>📊 Tabla 1 · Comparativa Sem. Comparativa vs Sem. Actual (MM CLP)</h3>
+    <canvas id="cBodega" height="160"></canvas>
   </div>
-  <div class="chart-box" style="margin-top:16px">
-    <h3>Tabla Comparativa por Bodega</h3>
+  <div class="chart-box" style="margin-top:14px">
     <div class="tbl-wrap">
       <table id="tblBodega">
         <thead><tr>
@@ -188,15 +182,32 @@ tr:hover td{background:#f8fafc}
       </table>
     </div>
   </div>
+  <div class="chart-box" style="margin-top:24px">
+    <h3>📈 Tabla 3 · Evolución por Bodega · Sem. 31 → Sem. 33 (MM CLP)</h3>
+    <canvas id="cEvolBod" height="180"></canvas>
+  </div>
+  <div class="chart-box" style="margin-top:14px">
+    <div class="tbl-wrap">
+      <table id="tblEvolBod">
+        <thead><tr>
+          <th onclick="sortTbl('tblEvolBod',0)">Bodega</th>
+          <th onclick="sortTbl('tblEvolBod',1)">Sem. 31</th>
+          <th onclick="sortTbl('tblEvolBod',2)">Sem. 32</th>
+          <th onclick="sortTbl('tblEvolBod',3)">Sem. 33</th>
+          <th onclick="sortTbl('tblEvolBod',4)">Δ %</th>
+        </tr></thead>
+        <tbody id="tbodyEvolBod"></tbody>
+      </table>
+    </div>
+  </div>
 </div>
 <div class="section" id="sec2">
-  <div class="section-title">§3 Top 10 Valorizado por Subfamilia · Sem. Comparativa vs Sem. Actual</div>
+  <div class="section-title">§ Inventario Valorizado por Subfamilia</div>
   <div class="chart-box">
-    <h3>Comparativa por Subfamilia (MM CLP)</h3>
-    <canvas id="cSubfam" height="260"></canvas>
+    <h3>📊 Tabla 2 · Top 10 Subfamilias · Sem. Comparativa vs Sem. Actual (MM CLP)</h3>
+    <canvas id="cSubfam" height="240"></canvas>
   </div>
-  <div class="chart-box" style="margin-top:16px">
-    <h3>Tabla por Subfamilia</h3>
+  <div class="chart-box" style="margin-top:14px">
     <div class="tbl-wrap">
       <table id="tblSubfam">
         <thead><tr>
@@ -209,57 +220,11 @@ tr:hover td{background:#f8fafc}
       </table>
     </div>
   </div>
-</div>
-<div class="section" id="sec3">
-  <div class="section-title">§4 Consumo Semanal de Inventario</div>
-  <div class="chart-box">
-    <h3>Consumo Valorizado por Semana (MM CLP)</h3>
-    <canvas id="cConsSem" height="160"></canvas>
+  <div class="chart-box" style="margin-top:24px">
+    <h3>📈 Tabla 4 · Evolución por Subfamilia · Sem. 31 → Sem. 33 (MM CLP)</h3>
+    <canvas id="cEvolSf" height="260"></canvas>
   </div>
-  <div class="chart-box" style="margin-top:16px">
-    <h3>Top OTs por Consumo del Período</h3>
-    <div class="tbl-wrap">
-      <table id="tblTopOTs">
-        <thead><tr>
-          <th onclick="sortTbl('tblTopOTs',0)">OT</th>
-          <th onclick="sortTbl('tblTopOTs',1)">Consumo Período ($)</th>
-          <th onclick="sortTbl('tblTopOTs',2)">% del Total</th>
-        </tr></thead>
-        <tbody id="tbodyTopOTs"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<div class="section" id="sec4">
-  <div class="section-title">§5 Evolución Inventario por Bodega · Sem. 31 a Sem. 33</div>
-  <div class="chart-box">
-    <h3>Valorizado por Bodega — Últimas 3 Semanas (MM CLP)</h3>
-    <canvas id="cEvolBod" height="200"></canvas>
-  </div>
-  <div class="chart-box" style="margin-top:16px">
-    <h3>Tabla de Evolución por Bodega</h3>
-    <div class="tbl-wrap">
-      <table id="tblEvolBod">
-        <thead><tr>
-          <th onclick="sortTbl('tblEvolBod',0)">Bodega</th>
-          <th onclick="sortTbl('tblEvolBod',1)">Sem. 31</th>
-          <th onclick="sortTbl('tblEvolBod',2)">Sem. 32</th>
-          <th onclick="sortTbl('tblEvolBod',3)">Sem. 33</th>
-          <th onclick="sortTbl('tblEvolBod',4)">Δ % (Sem. 32 → Sem. 33)</th>
-        </tr></thead>
-        <tbody id="tbodyEvolBod"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<div class="section" id="sec5">
-  <div class="section-title">§6 Evolución Inventario por Subfamilia · Sem. 31 a Sem. 33</div>
-  <div class="chart-box">
-    <h3>Valorizado por Subfamilia — Últimas 3 Semanas (MM CLP)</h3>
-    <canvas id="cEvolSf" height="280"></canvas>
-  </div>
-  <div class="chart-box" style="margin-top:16px">
-    <h3>Tabla de Evolución por Subfamilia</h3>
+  <div class="chart-box" style="margin-top:14px">
     <div class="tbl-wrap">
       <table id="tblEvolSf">
         <thead><tr>
@@ -267,9 +232,86 @@ tr:hover td{background:#f8fafc}
           <th onclick="sortTbl('tblEvolSf',1)">Sem. 31</th>
           <th onclick="sortTbl('tblEvolSf',2)">Sem. 32</th>
           <th onclick="sortTbl('tblEvolSf',3)">Sem. 33</th>
-          <th onclick="sortTbl('tblEvolSf',4)">Δ % (Sem. 32 → Sem. 33)</th>
+          <th onclick="sortTbl('tblEvolSf',4)">Δ %</th>
         </tr></thead>
         <tbody id="tbodyEvolSf"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="section" id="sec3">
+  <div class="section-title">§ Consumo Semanal de Inventario</div>
+  <div class="chart-box">
+    <h3>📉 Tabla 5 · Consumo Valorizado por Semana (MM CLP)</h3>
+    <canvas id="cConsSem" height="160"></canvas>
+  </div>
+  <div class="chart-box" style="margin-top:14px">
+    <div class="tbl-wrap">
+      <table id="tblConsSem">
+        <thead><tr><th>Semana</th><th>Consumo (MM CLP)</th></tr></thead>
+        <tbody id="tbodyConsSem"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="chart-box" style="margin-top:24px">
+    <h3>📊 Tabla 7 · Evolución Semanal Salidas por Subfamilia · Total Período (MM CLP)</h3>
+    <canvas id="cEvolSfSem" height="220"></canvas>
+  </div>
+  <div class="chart-box" style="margin-top:14px">
+    <div class="tbl-wrap">
+      <table id="tblEvolSfSem">
+        <thead><tr id="thdrEvolSfSem"></tr></thead>
+        <tbody id="tbodyEvolSfSem"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="section" id="sec4">
+  <div class="section-title">§ Evolución por Orden de Trabajo (OT)</div>
+  <div class="chart-box">
+    <h3>📋 Tabla 6 · Top OTs · Consumo del Período (MM CLP)</h3>
+    <canvas id="cTopOTs" height="160"></canvas>
+  </div>
+  <div class="chart-box" style="margin-top:14px">
+    <div class="tbl-wrap">
+      <table id="tblTopOTs">
+        <thead><tr>
+          <th onclick="sortTbl('tblTopOTs',0)">OT</th>
+          <th onclick="sortTbl('tblTopOTs',1)">Consumo ($)</th>
+          <th onclick="sortTbl('tblTopOTs',2)">% del Total</th>
+        </tr></thead>
+        <tbody id="tbodyTopOTs"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="chart-box" style="margin-top:24px">
+    <h3>📊 Tabla 8 · Salidas de Accesorios por OT (MM CLP)</h3>
+    <canvas id="cOtCli" height="160"></canvas>
+  </div>
+  <div class="chart-box" style="margin-top:14px">
+    <div class="tbl-wrap">
+      <table id="tblOtCli">
+        <thead><tr id="thdrOtCli"></tr></thead>
+        <tbody id="tbodyOtCli"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="section" id="sec5">
+  <div class="section-title">§ Consumo por Cliente</div>
+  <div class="chart-box">
+    <h3>👥 Tabla 9 · Consumo Total por Cliente (MM CLP)</h3>
+    <canvas id="cConsCli" height="160"></canvas>
+  </div>
+  <div class="chart-box" style="margin-top:14px">
+    <div class="tbl-wrap">
+      <table id="tblConsCli">
+        <thead><tr>
+          <th onclick="sortTbl('tblConsCli',0)">Cliente</th>
+          <th onclick="sortTbl('tblConsCli',1)">Consumo Total ($)</th>
+          <th onclick="sortTbl('tblConsCli',2)">% del Total</th>
+        </tr></thead>
+        <tbody id="tbodyConsCli"></tbody>
       </table>
     </div>
   </div>
@@ -284,22 +326,33 @@ const BOD_ACT=[21.585, 6.962, 7.236, 0.294];
 const SF_LBL=["ACCESORIOS", "HERRAMIENTAS Y OTROS", "ELEMENTOS DE PROTECCION PERSONAL", "EQUIPOS", "INSUMOS", "ELEMENTOS DE SUJECION", "MATERIALES DE ACERO", "MATERIALES DE CONSTRUCCION", "PARTES Y PIEZAS ELECTRICAS", "OTROS"];
 const SF_COMP=[20.524, 7.541, 2.547, 2.562, 1.534, 1.23, 0.889, 0.085, 0.08, 0.052];
 const SF_ACT=[20.495, 7.172, 2.743, 2.145, 1.618, 1.413, 0.294, 0.085, 0.08, 0.023];
-const CONS_LBL=["Sem 27", "Sem 28", "Sem 29", "Sem 30", "Sem 31", "Sem 32", "Sem 33", "OT", "OT-2504-26"];
-const CONS_VALS=[6.46, 1.281, 0.656, 1.475, 1.981, 7.207, 0.149, 0.0, 6.076];
+const CONS_LBL=["Sem 27", "Sem 28", "Sem 29", "Sem 30", "Sem 31", "Sem 32", "Sem 33"];
+const CONS_VALS=[6.46, 1.281, 0.656, 1.475, 1.981, 7.207, 0.149];
 const TOP_OTS=[{"ot": "OT-2504-26", "consumo": 6075622}, {"ot": "OT-2566-26", "consumo": 4925935}, {"ot": "OT-2532-26", "consumo": 2251166}, {"ot": "OT-2525-26", "consumo": 1876983}, {"ot": "OT-2520-26", "consumo": 1812957}, {"ot": "Sem. 31", "consumo": 0}];
 const EVOL_BOD_LBL=["Producto Terminado", "Herramientas y Equipos", "Servicios", "Aceros Maestranza Pto Montt"];
 const EVOL_BOD_S31=[21.522, 5.374, 7.192, 0.889];
 const EVOL_BOD_S32=[21.05, 8.779, 6.335, 0.889];
 const EVOL_BOD_S33=[21.585, 6.962, 7.236, 0.294];
 const EVOL_BOD=[{"bodega": "Producto Terminado", "sem31": 21521689.0, "sem32": 21050241.0, "sem33": 21585228.0, "delta": 0.025414768410489952, "is_total": false}, {"bodega": "Herramientas y Equipos", "sem31": 5374041.0, "sem32": 8778543.0, "sem33": 6962245.0, "delta": -0.2069019881773092, "is_total": false}, {"bodega": "Servicios", "sem31": 7191961.002231918, "sem32": 6334945.0, "sem33": 7235583.0, "delta": 0.14216982152173374, "is_total": false}, {"bodega": "Aceros Maestranza Pto Montt", "sem31": 888828.0, "sem32": 888828.0, "sem33": 294036.0, "delta": -0.6691868392984919, "is_total": false}, {"bodega": "Total general", "sem31": 34976519.00223192, "sem32": 37052557.0, "sem33": 36077092.0, "delta": -0.026326523160061566, "is_total": true}];
-const EVOL_SF_LBL=["4.  EVOLUCIÓN DEL INVENTARIO VALORIZADO POR SUBFAMILIA  ·  Últimas 3 semanas (31 a 33)", "ACCESORIOS", "HERRAMIENTAS Y OTROS", "ELEMENTOS DE PROTECCION PERSONAL", "EQUIPOS", "INSUMOS", "ELEMENTOS DE SUJECION", "MATERIALES DE ACERO", "MATERIALES DE CONSTRUCCION", "PARTES Y PIEZAS ELECTRICAS", "OTROS"];
-const EVOL_SF_S31=[0.0, 21.076, 5.355, 2.375, 2.465, 1.497, 1.094, 0.889, 0.085, 0.08, 0.052];
-const EVOL_SF_S32=[0.0, 20.524, 7.541, 2.547, 2.562, 1.534, 1.23, 0.889, 0.085, 0.08, 0.052];
-const EVOL_SF_S33=[0.0, 20.495, 7.172, 2.743, 2.145, 1.618, 1.413, 0.294, 0.085, 0.08, 0.023];
-const EVOL_SF=[{"subfamilia": "4.  EVOLUCIÓN DEL INVENTARIO VALORIZADO POR SUBFAMILIA  ·  Últimas 3 semanas (31 a 33)", "sem31": 0.0, "sem32": 0.0, "sem33": 0.0, "delta": 0.0, "is_total": false}, {"subfamilia": "ACCESORIOS", "sem31": 21076071.0, "sem32": 20524423.0, "sem33": 20495110.0, "delta": -0.0014282009292051479, "is_total": false}, {"subfamilia": "HERRAMIENTAS Y OTROS", "sem31": 5354552.0, "sem32": 7540934.0, "sem33": 7171578.0, "delta": -0.04898013959544001, "is_total": false}, {"subfamilia": "ELEMENTOS DE PROTECCION PERSONAL", "sem31": 2375128.0, "sem32": 2546726.0, "sem33": 2742648.0, "delta": 0.07693093014325059, "is_total": false}, {"subfamilia": "EQUIPOS", "sem31": 2465167.0, "sem32": 2561806.0, "sem33": 2145151.0, "delta": -0.16264112114656615, "is_total": false}, {"subfamilia": "INSUMOS", "sem31": 1496505.0022319187, "sem32": 1533552.0, "sem33": 1617759.0, "delta": 0.054909778083821026, "is_total": false}, {"subfamilia": "ELEMENTOS DE SUJECION", "sem31": 1094062.0, "sem32": 1230082.0, "sem33": 1412879.0, "delta": 0.1486055401184636, "is_total": false}, {"subfamilia": "MATERIALES DE ACERO", "sem31": 888828.0, "sem32": 888828.0, "sem33": 294036.0, "delta": -0.6691868392984919, "is_total": false}, {"subfamilia": "MATERIALES DE CONSTRUCCION", "sem31": 85092.0, "sem32": 85092.0, "sem33": 85092.0, "delta": 0.0, "is_total": false}, {"subfamilia": "PARTES Y PIEZAS ELECTRICAS", "sem31": 79620.0, "sem32": 79620.0, "sem33": 79620.0, "delta": 0.0, "is_total": false}, {"subfamilia": "OTROS", "sem31": 51565.0, "sem32": 51565.0, "sem33": 23290.0, "delta": -0.5483370503248327, "is_total": false}];
+const EVOL_SF_LBL=["HERRAMIENTAS Y OTROS", "ELEMENTOS DE PROTECCION PERSONAL", "EQUIPOS", "INSUMOS", "ELEMENTOS DE SUJECION", "MATERIALES DE ACERO", "MATERIALES DE CONSTRUCCION", "PARTES Y PIEZAS ELECTRICAS", "OTROS"];
+const EVOL_SF_S31=[5.355, 2.375, 2.465, 1.497, 1.094, 0.889, 0.085, 0.08, 0.052];
+const EVOL_SF_S32=[7.541, 2.547, 2.562, 1.534, 1.23, 0.889, 0.085, 0.08, 0.052];
+const EVOL_SF_S33=[7.172, 2.743, 2.145, 1.618, 1.413, 0.294, 0.085, 0.08, 0.023];
+const EVOL_SF=[{"subfamilia": "HERRAMIENTAS Y OTROS", "sem31": 5354552.0, "sem32": 7540934.0, "sem33": 7171578.0, "delta": -0.04898013959544001, "is_total": false}, {"subfamilia": "ELEMENTOS DE PROTECCION PERSONAL", "sem31": 2375128.0, "sem32": 2546726.0, "sem33": 2742648.0, "delta": 0.07693093014325059, "is_total": false}, {"subfamilia": "EQUIPOS", "sem31": 2465167.0, "sem32": 2561806.0, "sem33": 2145151.0, "delta": -0.16264112114656615, "is_total": false}, {"subfamilia": "INSUMOS", "sem31": 1496505.0022319187, "sem32": 1533552.0, "sem33": 1617759.0, "delta": 0.054909778083821026, "is_total": false}, {"subfamilia": "ELEMENTOS DE SUJECION", "sem31": 1094062.0, "sem32": 1230082.0, "sem33": 1412879.0, "delta": 0.1486055401184636, "is_total": false}, {"subfamilia": "MATERIALES DE ACERO", "sem31": 888828.0, "sem32": 888828.0, "sem33": 294036.0, "delta": -0.6691868392984919, "is_total": false}, {"subfamilia": "MATERIALES DE CONSTRUCCION", "sem31": 85092.0, "sem32": 85092.0, "sem33": 85092.0, "delta": 0.0, "is_total": false}, {"subfamilia": "PARTES Y PIEZAS ELECTRICAS", "sem31": 79620.0, "sem32": 79620.0, "sem33": 79620.0, "delta": 0.0, "is_total": false}, {"subfamilia": "OTROS", "sem31": 51565.0, "sem32": 51565.0, "sem33": 23290.0, "delta": -0.5483370503248327, "is_total": false}];
 const SC_LBL="Sem. Comparativa";
 const SA_LBL="Sem. Actual";
 const SEM_LBL_EVOL=["Sem. 31", "Sem. 32", "Sem. 33"];
+const EVOL_SFS=[{"subfamilia": "HERRAMIENTAS Y OTROS", "is_total": false, "total": 6130048, "s0": 2126559, "s1": 31287, "s2": 437439, "s3": 286997, "s4": 360304, "s5": 2879914, "s6": 7548}, {"subfamilia": "GALVANIZADO", "is_total": false, "total": 0, "s0": 0, "s1": 0, "s2": 0, "s3": 0, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "ELEMENTOS DE PROTECCION PERSONAL", "is_total": false, "total": 4870591, "s0": 1532943, "s1": 286117, "s2": 81780, "s3": 917468, "s4": 776107, "s5": 1206443, "s6": 69733}, {"subfamilia": "MATERIALES DE ACERO", "is_total": false, "total": 1600584, "s0": 0, "s1": 0, "s2": 0, "s3": 0, "s4": 0, "s5": 1600584, "s6": 0}, {"subfamilia": "VIVERES", "is_total": false, "total": 1515240, "s0": 1515240, "s1": 0, "s2": 0, "s3": 0, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "EQUIPOS", "is_total": false, "total": 0, "s0": 0, "s1": 0, "s2": 0, "s3": 0, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "ELEMENTOS DE SUJECION", "is_total": false, "total": 523537, "s0": 0, "s1": 6440, "s2": 97000, "s3": 67200, "s4": 92520, "s5": 204025, "s6": 56352}, {"subfamilia": "INSUMOS", "is_total": false, "total": 485294, "s0": 21860, "s1": 0, "s2": 110560, "s3": 13001, "s4": 44030, "s5": 66273, "s6": 229570}, {"subfamilia": "ARRIENDO EQUIPOS Y HERRAMIENTAS", "is_total": false, "total": 252000, "s0": 0, "s1": 0, "s2": 0, "s3": 252000, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "MATERIALES OFICINA", "is_total": false, "total": 130680, "s0": 0, "s1": 0, "s2": 130680, "s3": 0, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "OTROS", "is_total": false, "total": 78990, "s0": 0, "s1": 0, "s2": 78990, "s3": 0, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "ENERGIA", "is_total": false, "total": 78240, "s0": 0, "s1": 0, "s2": 78240, "s3": 0, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "EMBARCACIONES", "is_total": false, "total": 20000, "s0": 0, "s1": 0, "s2": 20000, "s3": 0, "s4": 0, "s5": 0, "s6": 0}, {"subfamilia": "Total general", "is_total": true, "total": 0, "s0": 0, "s1": 0, "s2": 0, "s3": 0, "s4": 0, "s5": 0, "s6": 0}];
+const SFS_LBL=["HERRAMIENTAS Y OTROS", "GALVANIZADO", "ELEMENTOS DE PROTECCION PERSONAL", "MATERIALES DE ACERO", "VIVERES", "EQUIPOS", "ELEMENTOS DE SUJECION", "INSUMOS", "ARRIENDO EQUIPOS Y HERRAMIENTAS", "MATERIALES OFICINA", "OTROS", "ENERGIA", "EMBARCACIONES"];
+const SFS_TOT=[6.13, 0.0, 4.871, 1.601, 1.515, 0.0, 0.524, 0.485, 0.252, 0.131, 0.079, 0.078, 0.02];
+const SEM_SF_LBL=["Sem 27", "Sem 28", "Sem 29", "Sem 30", "Sem 31", "Sem 32", "Sem 33"];
+const OT_CLI=[{"ot": "OT-2520-26", "cliente": "SALMONES MULTIEXPORT S.A.", "is_total": false, "total": 0, "s0": 76440, "s1": 769980, "s2": 0, "s3": 0}, {"ot": "OT-2541-26", "cliente": "SALMONES MULTIEXPORT S.A.", "is_total": false, "total": 0, "s0": 0, "s1": 0, "s2": 631500, "s3": 182083}, {"ot": "OT-2530-26", "cliente": "RIO YELCHO SPA", "is_total": false, "total": 0, "s0": 0, "s1": 0, "s2": 0, "s3": 256542}, {"ot": "OT-2543-26", "cliente": "CERMAQ CHILE SA", "is_total": false, "total": 0, "s0": 0, "s1": 0, "s2": 0, "s3": 105679}, {"ot": "OT-2565-26", "cliente": "SALMONES MULTIEXPORT S.A.", "is_total": false, "total": 18297, "s0": 0, "s1": 0, "s2": 0, "s3": 0}, {"ot": "OT-2547-26", "cliente": "RIO YELCHO SPA", "is_total": false, "total": 0, "s0": 0, "s1": 0, "s2": 0, "s3": 14688}];
+const OT_LBL=["OT-2520-26", "OT-2541-26", "OT-2530-26", "OT-2543-26", "OT-2565-26", "OT-2547-26"];
+const OT_TOT=[0.0, 0.0, 0.0, 0.0, 0.018, 0.0];
+const SEM_OT_LBL=["", "", "", ""];
+const CONS_CLI=[{"cliente": "SALMONES MULTIEXPORT S.A.", "total": 18297}, {"cliente": "RIO YELCHO SPA", "total": 0}, {"cliente": "CERMAQ CHILE SA", "total": 0}];
+const CLI_LBL=["SALMONES MULTIEXPORT S.A.", "RIO YELCHO SPA", "CERMAQ CHILE SA"];
+const CLI_TOT=[0.018, 0.0, 0.0];
 
 const fmtFull = v => {
   const sign = v < 0 ? '−' : '';
@@ -308,6 +361,7 @@ const fmtFull = v => {
 const fmtMM = v => (v >= 0 ? '' : '−') + Math.abs(v).toFixed(3) + ' MM';
 const deltaColor = d => d > 0 ? 'var(--green)' : d < 0 ? 'var(--red)' : 'var(--muted)';
 
+/* ── Tabla 1 · Bodegas comparativa ────────────────────────────────── */
 new Chart(document.getElementById('cBodega'), {
   type: 'bar',
   data: { labels: BOD_LBL, datasets: [
@@ -316,11 +370,12 @@ new Chart(document.getElementById('cBodega'), {
   ]},
   options: {
     indexAxis: 'y', responsive: true,
-    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)+' MM'}}},
+    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)}}},
     scales: {x: {title: {display:true, text:'MM CLP'}}}
   }
 });
 
+/* ── Tabla 2 · Subfamilias comparativa ─────────────────────────── */
 new Chart(document.getElementById('cSubfam'), {
   type: 'bar',
   data: { labels: SF_LBL, datasets: [
@@ -329,21 +384,12 @@ new Chart(document.getElementById('cSubfam'), {
   ]},
   options: {
     indexAxis: 'y', responsive: true,
-    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)+' MM'}}},
+    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)}}},
     scales: {x: {title: {display:true, text:'MM CLP'}}}
   }
 });
 
-new Chart(document.getElementById('cConsSem'), {
-  type: 'bar',
-  data: { labels: CONS_LBL, datasets: [{label:'Consumo', data:CONS_VALS, backgroundColor:'rgba(30,58,95,.75)'}]},
-  options: {
-    responsive: true,
-    plugins: {legend: {display:false}, tooltip: {callbacks: {label: ctx => 'Consumo: '+fmtMM(ctx.parsed.y)+' MM'}}},
-    scales: {y: {title: {display:true, text:'MM CLP'}}}
-  }
-});
-
+/* ── Tabla 3 · Evolución bodegas 3 semanas ──────────────────── */
 new Chart(document.getElementById('cEvolBod'), {
   type: 'bar',
   data: { labels: EVOL_BOD_LBL, datasets: [
@@ -353,11 +399,12 @@ new Chart(document.getElementById('cEvolBod'), {
   ]},
   options: {
     indexAxis: 'y', responsive: true,
-    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)+' MM'}}},
+    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)}}},
     scales: {x: {title: {display:true, text:'MM CLP'}}}
   }
 });
 
+/* ── Tabla 4 · Evolución subfamilias 3 semanas ──────────────── */
 new Chart(document.getElementById('cEvolSf'), {
   type: 'bar',
   data: { labels: EVOL_SF_LBL, datasets: [
@@ -367,10 +414,83 @@ new Chart(document.getElementById('cEvolSf'), {
   ]},
   options: {
     indexAxis: 'y', responsive: true,
-    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)+' MM'}}},
+    plugins: {legend: {position:'top'}, tooltip: {callbacks: {label: ctx => ctx.dataset.label+': '+fmtMM(ctx.parsed.x)}}},
     scales: {x: {title: {display:true, text:'MM CLP'}}}
   }
 });
+
+/* ── Tabla 5 · Consumo valorizado semanal ───────────────────── */
+new Chart(document.getElementById('cConsSem'), {
+  type: 'bar',
+  data: { labels: CONS_LBL, datasets: [{label:'Consumo', data:CONS_VALS, backgroundColor:'rgba(30,58,95,.75)'}]},
+  options: {
+    responsive: true,
+    plugins: {legend: {display:false}, tooltip: {callbacks: {label: ctx => 'Consumo: '+fmtMM(ctx.parsed.y)}}},
+    scales: {y: {title: {display:true, text:'MM CLP'}}}
+  }
+});
+
+/* ── Tabla 6 · Top OTs consumo período ─────────────────────── */
+new Chart(document.getElementById('cTopOTs'), {
+  type: 'bar',
+  data: { labels: TOP_OTS.map(o=>o.ot), datasets: [{
+    label:'Consumo',
+    data: TOP_OTS.map(o=>Math.round(o.consumo/1e6*1000)/1000),
+    backgroundColor:'rgba(217,119,6,.75)'
+  }]},
+  options: {
+    indexAxis: 'y', responsive: true,
+    plugins: {legend: {display:false}, tooltip: {callbacks: {label: ctx => fmtMM(ctx.parsed.x)}}},
+    scales: {x: {title: {display:true, text:'MM CLP'}}}
+  }
+});
+
+/* ── Tabla 7 · Evolución semanal salidas por subfamilia ────────── */
+new Chart(document.getElementById('cEvolSfSem'), {
+  type: 'bar',
+  data: { labels: SFS_LBL, datasets: [{
+    label:'Total Período',
+    data: SFS_TOT,
+    backgroundColor:'rgba(13,148,136,.75)'
+  }]},
+  options: {
+    indexAxis: 'y', responsive: true,
+    plugins: {legend: {display:false}, tooltip: {callbacks: {label: ctx => fmtMM(ctx.parsed.x)}}},
+    scales: {x: {title: {display:true, text:'MM CLP'}}}
+  }
+});
+
+/* ── Tabla 8 · Salidas accesorios por OT ───────────────────── */
+new Chart(document.getElementById('cOtCli'), {
+  type: 'bar',
+  data: { labels: OT_LBL, datasets: [{
+    label:'Total Período',
+    data: OT_TOT,
+    backgroundColor:'rgba(30,58,95,.75)'
+  }]},
+  options: {
+    indexAxis: 'y', responsive: true,
+    plugins: {legend: {display:false}, tooltip: {callbacks: {label: ctx => fmtMM(ctx.parsed.x)}}},
+    scales: {x: {title: {display:true, text:'MM CLP'}}}
+  }
+});
+
+/* ── Tabla 9 · Consumo por cliente ─────────────────────────── */
+new Chart(document.getElementById('cConsCli'), {
+  type: 'bar',
+  data: { labels: CLI_LBL, datasets: [{
+    label:'Consumo Total',
+    data: CLI_TOT,
+    backgroundColor:'rgba(37,99,235,.7)'
+  }]},
+  options: {
+    indexAxis: 'y', responsive: true,
+    plugins: {legend: {display:false}, tooltip: {callbacks: {label: ctx => fmtMM(ctx.parsed.x)}}},
+    scales: {x: {title: {display:true, text:'MM CLP'}}}
+  }
+});
+
+/* ── Table builders ────────────────────────────────────────────────── */
 
 (function(){
   const tb=document.getElementById('tbodyBodega');
@@ -381,6 +501,21 @@ new Chart(document.getElementById('cEvolSf'), {
       +'<td>'+b.bodega+'</td>'
       +'<td>'+fmtFull(b.val_comp)+'</td>'
       +'<td>'+fmtFull(b.val_act)+'</td>'
+      +'<td style="color:'+col+'">'+sign+((d*100).toFixed(1))+'%</td>'
+      +'</tr>');
+  });
+})();
+
+(function(){
+  const tb=document.getElementById('tbodyEvolBod');
+  EVOL_BOD.forEach(b=>{
+    const d=b.delta, col=deltaColor(d), sign=d>=0?'+':'';
+    const style=b.is_total?' style="background:#f8fafc;font-weight:700"':'';
+    tb.insertAdjacentHTML('beforeend','<tr'+style+'>'
+      +'<td>'+b.bodega+'</td>'
+      +'<td>'+fmtFull(b.sem31)+'</td>'
+      +'<td>'+fmtFull(b.sem32)+'</td>'
+      +'<td>'+fmtFull(b.sem33)+'</td>'
       +'<td style="color:'+col+'">'+sign+((d*100).toFixed(1))+'%</td>'
       +'</tr>');
   });
@@ -401,6 +536,47 @@ new Chart(document.getElementById('cEvolSf'), {
 })();
 
 (function(){
+  const tb=document.getElementById('tbodyEvolSf');
+  EVOL_SF.forEach(s=>{
+    const d=s.delta, col=deltaColor(d), sign=d>=0?'+':'';
+    const style=s.is_total?' style="background:#f8fafc;font-weight:700"':'';
+    tb.insertAdjacentHTML('beforeend','<tr'+style+'>'
+      +'<td>'+s.subfamilia+'</td>'
+      +'<td>'+fmtFull(s.sem31)+'</td>'
+      +'<td>'+fmtFull(s.sem32)+'</td>'
+      +'<td>'+fmtFull(s.sem33)+'</td>'
+      +'<td style="color:'+col+'">'+sign+((d*100).toFixed(1))+'%</td>'
+      +'</tr>');
+  });
+})();
+
+(function(){
+  const tb=document.getElementById('tbodyConsSem');
+  CONS_LBL.forEach((lbl,i)=>{
+    const v=CONS_VALS[i]||0;
+    tb.insertAdjacentHTML('beforeend','<tr>'
+      +'<td>'+lbl+'</td>'
+      +'<td>'+fmtMM(v)+'</td>'
+      +'</tr>');
+  });
+})();
+
+(function(){
+  const hdr=document.getElementById('thdrEvolSfSem');
+  const cols=['Subfamilia',...SEM_SF_LBL,'Total Período'];
+  hdr.innerHTML=cols.map(h=>'<th>'+h+'</th>').join('');
+  const tb=document.getElementById('tbodyEvolSfSem');
+  const n=SEM_SF_LBL.length;
+  EVOL_SFS.forEach(s=>{
+    const style=s.is_total?' style="background:#f8fafc;font-weight:700"':'';
+    let cells='<td>'+s.subfamilia+'</td>';
+    for(let i=0;i<n;i++) cells+='<td>'+fmtFull(s['s'+i]||0)+'</td>';
+    cells+='<td><strong>'+fmtFull(s.total)+'</strong></td>';
+    tb.insertAdjacentHTML('beforeend','<tr'+style+'>'+cells+'</tr>');
+  });
+})();
+
+(function(){
   const tb=document.getElementById('tbodyTopOTs');
   const tot=TOP_OTS.reduce((s,o)=>s+o.consumo,0);
   TOP_OTS.forEach(o=>{
@@ -416,33 +592,33 @@ new Chart(document.getElementById('cEvolSf'), {
 })();
 
 (function(){
-  const tb=document.getElementById('tbodyEvolBod');
-  EVOL_BOD.forEach(b=>{
-    const d=b.delta, col=deltaColor(d), sign=d>=0?'+':'';
-    const style=b.is_total?' style="background:#f8fafc;font-weight:700"':'';
-    tb.insertAdjacentHTML('beforeend','<tr'+style+'>'
-      +'<td>'+b.bodega+'</td>'
-      +'<td>'+fmtFull(b.sem31)+'</td>'
-      +'<td>'+fmtFull(b.sem32)+'</td>'
-      +'<td>'+fmtFull(b.sem33)+'</td>'
-      +'<td style="color:'+col+'">'+sign+((d*100).toFixed(1))+'%</td>'
-      +'</tr>');
+  const hdr=document.getElementById('thdrOtCli');
+  const cols=['OT','Cliente',...SEM_OT_LBL,'Total Período'];
+  hdr.innerHTML=cols.map(h=>'<th>'+h+'</th>').join('');
+  const tb=document.getElementById('tbodyOtCli');
+  const n=SEM_OT_LBL.length;
+  OT_CLI.forEach(r=>{
+    const style=r.is_total?' style="background:#f8fafc;font-weight:700"':'';
+    let cells='<td>'+(r.ot||'')+'</td><td>'+(r.cliente||'')+'</td>';
+    for(let i=0;i<n;i++) cells+='<td>'+fmtFull(r['s'+i]||0)+'</td>';
+    cells+='<td><strong>'+fmtFull(r.total)+'</strong></td>';
+    tb.insertAdjacentHTML('beforeend','<tr'+style+'>'+cells+'</tr>');
   });
 })();
 
 (function(){
-  const tb=document.getElementById('tbodyEvolSf');
-  EVOL_SF.forEach(s=>{
-    const d=s.delta, col=deltaColor(d), sign=d>=0?'+':'';
-    const style=s.is_total?' style="background:#f8fafc;font-weight:700"':'';
-    tb.insertAdjacentHTML('beforeend','<tr'+style+'>'
-      +'<td>'+s.subfamilia+'</td>'
-      +'<td>'+fmtFull(s.sem31)+'</td>'
-      +'<td>'+fmtFull(s.sem32)+'</td>'
-      +'<td>'+fmtFull(s.sem33)+'</td>'
-      +'<td style="color:'+col+'">'+sign+((d*100).toFixed(1))+'%</td>'
+  const tb=document.getElementById('tbodyConsCli');
+  const tot=CONS_CLI.reduce((s,c)=>s+c.total,0);
+  CONS_CLI.forEach(c=>{
+    const pct=tot?((c.total/tot)*100).toFixed(1)+'%':'--';
+    tb.insertAdjacentHTML('beforeend','<tr>'
+      +'<td>'+c.cliente+'</td>'
+      +'<td>'+fmtFull(c.total)+'</td>'
+      +'<td>'+pct+'</td>'
       +'</tr>');
   });
+  if(tot) tb.insertAdjacentHTML('beforeend','<tr style="background:#f8fafc;font-weight:700">'
+    +'<td>TOTAL</td><td>'+fmtFull(tot)+'</td><td>100%</td></tr>');
 })();
 
 const sortState={};
